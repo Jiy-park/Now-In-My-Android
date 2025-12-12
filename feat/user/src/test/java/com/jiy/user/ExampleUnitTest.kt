@@ -1,4 +1,4 @@
-package com.jiy.dashboard
+package com.jiy.user
 
 import org.junit.Assert.assertEquals
 import org.junit.Test

@@ -1,6 +1,7 @@
-package com.jiy.dashboard.domain.model
+package com.jiy.user.domain.model
 
-data class Profile(
+data class User(
+  val id: Int,
   val name: String,
   val phoneNum: String,
   val email: String,

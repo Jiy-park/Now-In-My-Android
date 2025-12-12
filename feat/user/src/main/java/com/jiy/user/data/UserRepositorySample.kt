@@ -1,16 +1,18 @@
-package com.jiy.dashboard.data
+package com.jiy.user.data
 
-import com.jiy.dashboard.domain.DashboardRepository
-import com.jiy.dashboard.domain.model.Career
-import com.jiy.dashboard.domain.model.Profile
-import com.jiy.dashboard.domain.model.Skill
+import android.R.attr.name
+import com.jiy.user.domain.UserRepository
+import com.jiy.user.domain.model.Career
+import com.jiy.user.domain.model.User
+import com.jiy.user.domain.model.Skill
 import kotlinx.coroutines.delay
 import java.time.LocalDate
 
-object DashboardRepositorySample: DashboardRepository {
-  override suspend fun getProfile(): Profile {
+object UserRepositorySample: UserRepository {
+  override suspend fun me(): User {
     delay(100)
-    return Profile(
+    return User(
+      id = 1,
       name = "박지용",
       phoneNum = "01039547706",
       email = "jiyong3954@gmail.com",
@@ -19,23 +21,23 @@ object DashboardRepositorySample: DashboardRepository {
     )
   }
 
-  override suspend fun getSkillStack(): List<Skill> {
-    fun simpleSkill(name: String) = Skill(name = name, iconUrl = null, level = null,  description = null)
+  override suspend fun getMySkillStack(): List<Skill> {
+    fun simpleSkill(id: Int, name: String) = Skill(id = id, name = name, iconUrl = null, level = null,  description = null)
     delay(100)
     return listOf(
-      simpleSkill(name = "Android"),
-      simpleSkill(name = "Kotlin"),
-      simpleSkill(name = "Compose"),
-      simpleSkill(name = "MVVM"),
-      simpleSkill(name = "Multi Module"),
-      simpleSkill(name = "Clean Architecture"),
-      simpleSkill(name = "Coroutine"),
-      simpleSkill(name = "Flow"),
-      simpleSkill(name = "Git"),
+      simpleSkill(id = 1,name = "Android"),
+      simpleSkill(id = 2,name = "Kotlin"),
+      simpleSkill(id = 3,name = "Compose"),
+      simpleSkill(id = 4,name = "MVVM"),
+      simpleSkill(id = 5,name = "Multi Module"),
+      simpleSkill(id = 6,name = "Clean Architecture"),
+      simpleSkill(id = 7,name = "Coroutine"),
+      simpleSkill(id = 8,name = "Flow"),
+      simpleSkill(id = 9,name = "Git"),
     )
   }
 
-  override suspend fun getCareers(): List<Career> {
+  override suspend fun getMyCareers(): List<Career> {
     delay(100)
     return listOf(
       Career(

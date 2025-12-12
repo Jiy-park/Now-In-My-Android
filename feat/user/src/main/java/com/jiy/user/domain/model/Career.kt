@@ -1,4 +1,4 @@
-package com.jiy.dashboard.domain.model
+package com.jiy.user.domain.model
 
 import java.time.LocalDate
 

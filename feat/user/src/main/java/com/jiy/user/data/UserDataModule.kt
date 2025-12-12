@@ -1,6 +1,6 @@
-package com.jiy.dashboard.data
+package com.jiy.user.data
 
-import com.jiy.dashboard.domain.DashboardRepository
+import com.jiy.user.domain.UserRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -9,8 +9,8 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-abstract class DashboardDataModule {
+abstract class UserDataModule {
   @Binds
   @Singleton
-  abstract fun bindDashboardRepository(impl: DashboardRepositorySample): DashboardRepository
+  abstract fun bindUserRepository(impl: UserRepositorySample): UserRepository
 }

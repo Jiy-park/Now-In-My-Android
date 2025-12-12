@@ -10,7 +10,7 @@ plugins {
 }
 
 android {
-  namespace = "com.jiy.dashboard"
+  namespace = "com.jiy.user"
   compileSdk {
     version = release(36)
   }
@@ -52,4 +52,6 @@ dependencies {
   implementation(libs.hilt.android)
   implementation(libs.hilt.navigation.compose)
   ksp(libs.hilt.android.compiler)
+
+  implementation(project(":core:core"))
 }
