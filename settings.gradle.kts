@@ -22,3 +22,5 @@ dependencyResolutionManagement {
 rootProject.name = "NowInMyAndroid"
 include(":app")
 include(":core:core")
+include(":feat:user")
+include(":screen:main")
