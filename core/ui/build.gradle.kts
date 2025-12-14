@@ -4,14 +4,10 @@ plugins {
   alias(libs.plugins.android.library)
   alias(libs.plugins.kotlin.android)
   alias(libs.plugins.kotlin.compose)
-
-  alias(libs.plugins.ksp)
-  alias(libs.plugins.hilt.android)
-  alias(libs.plugins.kotlinx.serialization)
 }
 
 android {
-  namespace = "com.jiy.screen.main"
+  namespace = "com.jiy.ui"
   compileSdk {
     version = release(36)
   }
@@ -44,23 +40,16 @@ android {
 }
 
 dependencies {
-
   implementation(platform(libs.androidx.compose.bom))
   implementation(libs.bundles.compose)
   testImplementation(libs.bundles.test)
   debugImplementation(libs.bundles.compose.debug)
   androidTestImplementation(libs.bundles.compose.test)
 
-  implementation(libs.hilt.android)
-  implementation(libs.hilt.navigation.compose)
-  ksp(libs.hilt.android.compiler)
-
   implementation(libs.coil)
   implementation(libs.coil.network.okhttp)
 
-  implementation(libs.kotlinx.serialization)
+  implementation(libs.shimmer)
 
   implementation(project(":core:core"))
-  implementation(project(":core:ui"))
-  implementation(project(":feat:user"))
 }

@@ -6,10 +6,11 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.dd2d.now_in_my_android.navigation.modules.mainModule
+import com.jiy.ui.navigation.ScreenRoute
 
 @Composable
 internal fun AppNavHost(
-  startDestination: Any,
+  startDestination: ScreenRoute,
   modifier: Modifier = Modifier,
   navController: NavHostController = rememberNavController(),
 ) {

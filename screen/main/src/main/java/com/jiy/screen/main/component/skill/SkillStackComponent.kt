@@ -17,12 +17,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
-import com.jiy.screen.main.model.BorderColor
-import com.jiy.screen.main.model.ChipPaddingValues
-import com.jiy.screen.main.model.ChipShape
-import com.jiy.screen.main.model.PrimaryColor
-import com.jiy.screen.main.model.PrimaryContainerColor
-import com.jiy.screen.main.model.SurfaceColor
+import com.jiy.ui.theme.BorderColor
+import com.jiy.ui.theme.ChipPaddingValues
+import com.jiy.ui.theme.ChipShape
+import com.jiy.ui.theme.PrimaryColor
+import com.jiy.ui.theme.PrimaryContainerColor
+import com.jiy.ui.theme.SurfaceColor
 import com.jiy.user.domain.model.Skill
 import com.jiy.user.domain.model.SkillLevel
 

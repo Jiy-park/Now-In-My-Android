@@ -18,16 +18,15 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
-import com.jiy.screen.main.R
-import com.jiy.screen.main._core.ui.modifier.scalableClick
-import com.jiy.screen.main.model.BorderColor
-import com.jiy.screen.main.model.CardPaddingValues
-import com.jiy.screen.main.model.CardShape
-import com.jiy.screen.main.model.ChipPaddingValues
-import com.jiy.screen.main.model.ChipShape
-import com.jiy.screen.main.model.PrimaryColor
-import com.jiy.screen.main.model.PrimaryContainerColor
-import com.jiy.screen.main.model.SurfaceColor
+import com.jiy.ui.modifier.scalableClick
+import com.jiy.ui.theme.BorderColor
+import com.jiy.ui.theme.CardPaddingValues
+import com.jiy.ui.theme.CardShape
+import com.jiy.ui.theme.ChipPaddingValues
+import com.jiy.ui.theme.ChipShape
+import com.jiy.ui.theme.PrimaryColor
+import com.jiy.ui.theme.PrimaryContainerColor
+import com.jiy.ui.theme.SurfaceColor
 import com.jiy.user.domain.model.Career
 
 @Composable
@@ -142,7 +141,7 @@ private fun MoreCareerButton(
       style = MaterialTheme.typography.labelLarge,
     )
     Icon(
-      imageVector = ImageVector.vectorResource(R.drawable.right),
+      imageVector = ImageVector.vectorResource(com.jiy.ui.R.drawable.right),
       contentDescription = "경력 더보기",
       tint = PrimaryColor
     )

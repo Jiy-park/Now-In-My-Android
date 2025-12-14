@@ -28,11 +28,11 @@ import androidx.compose.ui.platform.LocalClipboard
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import com.jiy.screen.main.R
-import com.jiy.screen.main._core.ui.modifier.scalableClick
-import com.jiy.screen.main.model.BottomSheetShape
-import com.jiy.screen.main.model.CardPaddingValues
-import com.jiy.screen.main.model.CardShape
 import com.jiy.screen.main.model.ContactBottomSheetData
+import com.jiy.ui.modifier.scalableClick
+import com.jiy.ui.theme.BottomSheetShape
+import com.jiy.ui.theme.CardPaddingValues
+import com.jiy.ui.theme.CardShape
 import kotlinx.coroutines.launch
 
 

@@ -1,4 +1,4 @@
-package com.jiy.screen.main._core.ui.modifier
+package com.jiy.ui.modifier
 
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.tween

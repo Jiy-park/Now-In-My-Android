@@ -11,8 +11,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.jiy.screen.main.model.CardShape
-import com.valentinilk.shimmer.shimmer
+import com.jiy.ui.modifier.shimmer
+import com.jiy.ui.theme.CardShape
 
 @Composable
 internal fun CareersComponentPlaceholder(

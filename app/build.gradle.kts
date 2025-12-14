@@ -52,6 +52,7 @@ dependencies {
   implementation(libs.bundles.compose)
   testImplementation(libs.bundles.test)
   debugImplementation(libs.bundles.compose.debug)
+  androidTestImplementation(platform(libs.androidx.compose.bom))
   androidTestImplementation(libs.bundles.compose.test)
 
   implementation(libs.coil)
@@ -62,7 +63,7 @@ dependencies {
   ksp(libs.hilt.android.compiler)
 
   implementation(project(":core:core"))
+  implementation(project(":core:ui"))
   implementation(project(":feat:user"))
   implementation(project(":screen:main"))
-
 }

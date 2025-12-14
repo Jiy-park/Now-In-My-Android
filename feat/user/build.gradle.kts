@@ -57,4 +57,5 @@ dependencies {
   implementation(libs.coil.network.okhttp)
 
   implementation(project(":core:core"))
+  implementation(project(":core:ui"))
 }

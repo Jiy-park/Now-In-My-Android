@@ -4,8 +4,8 @@ package com.jiy.screen.main
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import com.jiy.screen.main._core.ui.ScreenRoute
 import com.jiy.screen.main.model.MainScreenNavEvent
+import com.jiy.ui.navigation.ScreenRoute
 import kotlinx.serialization.Serializable
 
 @Serializable
