@@ -9,7 +9,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-abstract class UserDataModule {
+internal abstract class UserDataModule {
   companion object {
     @Provides
     @Singleton

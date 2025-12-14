@@ -8,7 +8,7 @@ import com.jiy.user.domain.model.User
 import kotlinx.coroutines.delay
 import java.time.LocalDate
 
-object UserRepositorySample: UserRepository {
+internal object UserRepositorySample: UserRepository {
   override suspend fun me(): User {
     delay(100)
     return User(
