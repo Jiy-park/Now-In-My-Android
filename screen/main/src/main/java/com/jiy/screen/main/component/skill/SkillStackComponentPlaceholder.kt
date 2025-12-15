@@ -13,8 +13,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.jiy.ui.modifier.shimmer
-import com.jiy.ui.theme.ChipPaddingValues
-import com.jiy.ui.theme.ChipShape
+import com.jiy.ui.theme.Padding
+import com.jiy.ui.theme.Shape
 
 @Composable
 internal fun SkillStackComponentPlaceholder(
@@ -28,12 +28,12 @@ internal fun SkillStackComponentPlaceholder(
     repeat(5) {
       Box(
         modifier = modifier
-          .clip(ChipShape)
+          .clip(Shape.Chip)
           .shimmer()
           .width((50..150).random().dp)
           .height(30.dp)
           .background(Color.LightGray)
-          .padding(ChipPaddingValues)
+          .padding(Padding.Chip)
       )
     }
   }

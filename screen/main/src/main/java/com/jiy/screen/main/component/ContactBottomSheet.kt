@@ -2,14 +2,12 @@ package com.jiy.screen.main.component
 
 import android.content.ClipData
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.union
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
@@ -30,9 +28,8 @@ import androidx.compose.ui.unit.dp
 import com.jiy.screen.main.R
 import com.jiy.screen.main.model.ContactBottomSheetData
 import com.jiy.ui.modifier.scalableClick
-import com.jiy.ui.theme.BottomSheetShape
-import com.jiy.ui.theme.CardPaddingValues
-import com.jiy.ui.theme.CardShape
+import com.jiy.ui.theme.Padding
+import com.jiy.ui.theme.Shape
 import kotlinx.coroutines.launch
 
 
@@ -56,37 +53,34 @@ internal fun ContactBottomSheet(
   ModalBottomSheet(
     onDismissRequest = onDismissRequest,
     sheetState = sheetState,
-    shape = BottomSheetShape,
-    contentWindowInsets = {
-      val bottomNavHeight = WindowInsets.navigationBars
-      val bottomSheetInset = WindowInsets(left = 16.dp, right = 16.dp, top = 16.dp)
-      bottomNavHeight.union(bottomSheetInset)
-    },
+    shape = Shape.BottomSheet,
     modifier = modifier,
   ) {
-    Text(text = data.label, style = MaterialTheme.typography.bodyLarge)
-    Spacer(Modifier.height(12.dp))
-    Row(
-      verticalAlignment = Alignment.CenterVertically,
-      horizontalArrangement = Arrangement.SpaceBetween,
-      modifier = Modifier
-        .fillMaxWidth()
-        .scalableClick(shape = CardShape, onClick = ::copyData)
-        .padding(CardPaddingValues)
-    ) {
-      Text(text = data.value, style = MaterialTheme.typography.titleLarge)
-      Icon(
-        imageVector = ImageVector.vectorResource(R.drawable.copy),
-        contentDescription = "${data.label} 복사하기"
-      )
-    }
-    Spacer(Modifier.height(12.dp))
-    Button(
-      onClick = data.onAction,
-      shape = RoundedCornerShape(12.dp),
-      modifier = Modifier.fillMaxWidth()
-    ) {
-      Text(text = data.actionLabel, style = MaterialTheme.typography.bodySmall)
+    Column(modifier = Modifier.padding(Padding.BottomSheet)) {
+      Text(text = data.label, style = MaterialTheme.typography.bodyLarge)
+      Spacer(Modifier.height(12.dp))
+      Row(
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween,
+        modifier = Modifier
+          .fillMaxWidth()
+          .scalableClick(shape = Shape.Card, onClick = ::copyData)
+          .padding(Padding.Card)
+      ) {
+        Text(text = data.value, style = MaterialTheme.typography.titleLarge)
+        Icon(
+          imageVector = ImageVector.vectorResource(R.drawable.copy),
+          contentDescription = "${data.label} 복사하기"
+        )
+      }
+      Spacer(Modifier.height(12.dp))
+      Button(
+        onClick = data.onAction,
+        shape = RoundedCornerShape(12.dp),
+        modifier = Modifier.fillMaxWidth()
+      ) {
+        Text(text = data.actionLabel, style = MaterialTheme.typography.bodySmall)
+      }
     }
   }
 }

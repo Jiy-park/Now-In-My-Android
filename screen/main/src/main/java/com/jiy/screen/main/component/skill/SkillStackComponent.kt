@@ -18,10 +18,10 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import com.jiy.ui.theme.BorderColor
-import com.jiy.ui.theme.ChipPaddingValues
-import com.jiy.ui.theme.ChipShape
+import com.jiy.ui.theme.Padding
 import com.jiy.ui.theme.PrimaryColor
 import com.jiy.ui.theme.PrimaryContainerColor
+import com.jiy.ui.theme.Shape
 import com.jiy.ui.theme.SurfaceColor
 import com.jiy.user.domain.model.Skill
 import com.jiy.user.domain.model.SkillLevel
@@ -63,10 +63,10 @@ private fun SkillChip(
 
   Row(
     modifier = modifier
-      .clip(ChipShape)
+      .clip(Shape.Chip)
       .background(backgroundColor)
-      .border(width = 1.dp, color = borderColor, shape = ChipShape)
-      .padding(ChipPaddingValues)
+      .border(width = 1.dp, color = borderColor, shape = Shape.Chip)
+      .padding(Padding.Chip)
   ) {
     skill.iconUrl?.let { icon ->
       AsyncImage(

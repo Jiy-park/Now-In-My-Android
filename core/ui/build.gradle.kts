@@ -51,5 +51,7 @@ dependencies {
 
   implementation(libs.shimmer)
 
+  implementation(libs.compose.navigation)
+
   implementation(project(":core:core"))
 }

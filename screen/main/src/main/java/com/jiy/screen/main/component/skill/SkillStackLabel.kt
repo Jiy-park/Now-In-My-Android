@@ -19,9 +19,8 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import com.jiy.screen.main.R
 import com.jiy.ui.modifier.scalableClick
-import com.jiy.ui.theme.CardPaddingValues
-import com.jiy.ui.theme.CardShape
-import com.jiy.ui.theme.ChipShape
+import com.jiy.ui.theme.Padding
+import com.jiy.ui.theme.Shape
 import kotlinx.coroutines.launch
 
 @Composable
@@ -47,9 +46,9 @@ internal fun SkillStackLabel(
           text = {
             Text("대충 기술 스택에는 세가지 단계가 있고, 제일 높은 단계만 하이라이팅 된다는뜻")
           },
-          shape = CardShape,
+          shape = Shape.Card,
           modifier = Modifier
-            .padding(CardPaddingValues)
+            .padding(Padding.Card)
         )
       }
     ) {
@@ -58,7 +57,7 @@ internal fun SkillStackLabel(
         contentDescription = "기술 스택 안내",
         tint = Color.LightGray,
         modifier = Modifier
-          .clip(ChipShape)
+          .clip(Shape.Chip)
           .scalableClick {
             scope.launch {
               tooltipState.show()

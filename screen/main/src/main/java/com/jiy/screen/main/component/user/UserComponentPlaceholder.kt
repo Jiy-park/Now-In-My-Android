@@ -19,7 +19,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.jiy.ui.modifier.shimmer
-import com.jiy.ui.theme.CardShape
+import com.jiy.ui.theme.Shape
 
 @Composable
 internal fun UserComponentPlaceholder(
@@ -81,7 +81,7 @@ internal fun UserComponentPlaceholder(
         .shimmer()
         .fillMaxWidth()
         .height(100.dp)
-        .background(Color.LightGray, CardShape)
+        .background(Color.LightGray, Shape.Card)
     )
   }
 }

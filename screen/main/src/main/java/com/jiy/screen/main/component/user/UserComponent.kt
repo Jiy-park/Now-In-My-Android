@@ -23,10 +23,10 @@ import androidx.compose.ui.unit.dp
 import com.jiy.screen.main.R
 import com.jiy.ui.modifier.scalableClick
 import com.jiy.ui.theme.BorderColor
-import com.jiy.ui.theme.CardPaddingValues
-import com.jiy.ui.theme.CardShape
+import com.jiy.ui.theme.Padding
 import com.jiy.ui.theme.PrimaryColor
 import com.jiy.ui.theme.PrimaryContainerColor
+import com.jiy.ui.theme.Shape
 import com.jiy.ui.theme.SurfaceColor
 import com.jiy.user.domain.model.User
 import com.jiy.user.presentation.ProfileImage
@@ -112,9 +112,9 @@ internal fun UserComponent(
         modifier = Modifier
           .padding(top = 12.dp)
           .fillMaxWidth()
-          .background(SurfaceColor, CardShape)
-          .border(width = 1.dp, color = BorderColor, shape = CardShape)
-          .padding(CardPaddingValues)
+          .background(SurfaceColor, Shape.Card)
+          .border(width = 1.dp, color = BorderColor, shape = Shape.Card)
+          .padding(Padding.Card)
       ) {
         Text(
           text = introduction,
