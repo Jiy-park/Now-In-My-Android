@@ -1,28 +1,26 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
-  alias(libs.plugins.android.application)
+  alias(libs.plugins.android.library)
   alias(libs.plugins.kotlin.android)
   alias(libs.plugins.kotlin.compose)
 
   alias(libs.plugins.ksp)
   alias(libs.plugins.hilt.android)
+  alias(libs.plugins.kotlinx.serialization)
 }
 
 android {
-  namespace = "com.dd2d.now_in_my_android"
+  namespace = "com.jiy.screen.career"
   compileSdk {
     version = release(36)
   }
 
   defaultConfig {
-    applicationId = "com.dd2d.now_in_my_android"
     minSdk = 26
-    targetSdk = 36
-    versionCode = 1
-    versionName = "1.0"
 
     testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    consumerProguardFiles("consumer-rules.pro")
   }
 
   buildTypes {
@@ -46,26 +44,24 @@ android {
 }
 
 dependencies {
-  implementation(libs.androidx.activity.compose)
 
   implementation(platform(libs.androidx.compose.bom))
   implementation(libs.bundles.compose)
   testImplementation(libs.bundles.test)
   debugImplementation(libs.bundles.compose.debug)
-  androidTestImplementation(platform(libs.androidx.compose.bom))
   androidTestImplementation(libs.bundles.compose.test)
-
-  implementation(libs.coil)
-  implementation(libs.coil.network.okhttp)
 
   implementation(libs.hilt.android)
   implementation(libs.hilt.navigation.compose)
   ksp(libs.hilt.android.compiler)
 
+  implementation(libs.coil)
+  implementation(libs.coil.network.okhttp)
+
+  implementation(libs.kotlinx.serialization)
+
   implementation(project(":core:core"))
   implementation(project(":core:ui"))
-  implementation(project(":feat:user"))
   implementation(project(":feat:career"))
-  implementation(project(":screen:main"))
-  implementation(project(":screen:career"))
+  implementation(project(":feat:user"))
 }
