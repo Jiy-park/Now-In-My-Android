@@ -62,5 +62,6 @@ dependencies {
 
   implementation(project(":core:core"))
   implementation(project(":core:ui"))
+  implementation(project(":feat:career"))
   implementation(project(":feat:user"))
 }
