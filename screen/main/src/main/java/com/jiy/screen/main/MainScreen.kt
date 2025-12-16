@@ -36,6 +36,7 @@ import com.jiy.career.presentation.component.CareerListComponentPlaceholder
 import com.jiy.career.presentation.dummy.CareerDummy
 import com.jiy.core.state.Stateful
 import com.jiy.screen.main.component.ContactBottomSheet
+import com.jiy.screen.main.component.MainScreenTopBar
 import com.jiy.screen.main.component.career.CareerListComponent
 import com.jiy.screen.main.component.career.CareersLabel
 import com.jiy.screen.main.component.skill.SkillStackComponent
@@ -66,6 +67,7 @@ fun MainScreen(
   var contactBottomSheetData by remember { mutableStateOf<ContactBottomSheetData?>(null) }
 
   Scaffold(
+    topBar = { MainScreenTopBar() },
     modifier = modifier
   ) { inner ->
     MainContent(

@@ -20,9 +20,10 @@ internal fun DependencyHandlerScope.implementationCompose(libs: VersionCatalog) 
 
   debugImplementation(libs("androidx.compose.ui.tooling"))
   debugImplementation(libs("androidx.compose.ui.tooling.preview"))
+  debugImplementation(libs("androidx.compose.ui.test.junit4"))
 
+  androidTestImplementation(platform(libs("androidx.compose.bom")))
   androidTestImplementation(libs("androidx.junit"))
   androidTestImplementation(libs("androidx.espresso.core"))
   androidTestImplementation(libs("androidx.compose.ui.test.manifest"))
-  androidTestImplementation(libs("androidx.compose.ui.test.junit4"))
 }
