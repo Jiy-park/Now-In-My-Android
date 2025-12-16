@@ -18,15 +18,6 @@ import org.gradle.kotlin.dsl.dependencies
 internal class ApplicationModulePlugin: Plugin<Project> {
   override fun apply(target: Project) {
     with(target) {
-      with(pluginManager) {
-        apply("com.android.application")
-        apply("org.jetbrains.kotlin.android")
-        apply("org.jetbrains.kotlin.plugin.compose")
-        apply("org.jetbrains.kotlin.plugin.serialization")
-        apply("com.google.dagger.hilt.android")
-        apply("com.google.devtools.ksp")
-      }
-
       androidBaseConfigure()
       extensions.configure<ApplicationExtension> {
         defaultConfig {

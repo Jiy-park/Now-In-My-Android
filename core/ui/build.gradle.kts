@@ -4,6 +4,14 @@ plugins {
 
 android {
   namespace = "com.jiy.ui"
+
+  defaultConfig {
+    buildConfigField(type = "String", name = "VERSION_NAME", value = "\"${libs.versions.versionName.get()}\"")
+  }
+
+  buildFeatures {
+    buildConfig = true
+  }
 }
 
 dependencies {
