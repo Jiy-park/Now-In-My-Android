@@ -11,6 +11,53 @@ import com.jiy.ui.modifier.shimmer
 
 @Composable
 fun ShimmerBox(
+  modifier: Modifier = Modifier
+) {
+  Box(
+    modifier = modifier
+      .shimmer()
+  )
+}
+
+@Composable
+fun ShimmerBox(
+  shape: Shape,
+  modifier: Modifier = Modifier
+) {
+  Box(
+    modifier = modifier
+      .clip(shape)
+      .shimmer()
+  )
+}
+
+@Composable
+fun ShimmerBox(
+  size: Dp,
+  modifier: Modifier = Modifier
+) {
+  Box(
+    modifier = modifier
+      .size(size)
+      .shimmer()
+  )
+}
+
+@Composable
+fun ShimmerBox(
+  width: Dp,
+  height: Dp,
+  modifier: Modifier = Modifier
+) {
+  Box(
+    modifier = modifier
+      .size(width, height)
+      .shimmer()
+  )
+}
+
+@Composable
+fun ShimmerBox(
   shape: Shape,
   size: Dp,
   modifier: Modifier = Modifier
