@@ -1,4 +1,12 @@
 [versions]
+minSdk = "26"
+targetSdk = "36"
+compileSdk = "36"
+
+versionCode = "1"
+versionName = "1.0"
+
+
 agp = "8.13.2"
 kotlin = "2.2.21"
 hilt = "2.57.2"
@@ -45,6 +53,10 @@ coil-network-okhttp = { module = "io.coil-kt.coil3:coil-network-okhttp", version
 
 # navigation
 compose-navigation = { module = "androidx.navigation:navigation-compose", version = "2.9.6" }
+
+# build-logic
+android-gradle-plugin = { group = "com.android.tools.build", name = "gradle", version.ref = "agp" }
+kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 
 
 [plugins]
