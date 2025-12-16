@@ -18,20 +18,16 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
+import com.jiy.career.domain.model.CareerListItem
+import com.jiy.career.presentation.component.CareerListItemComponent
 import com.jiy.ui.modifier.scalableClick
 import com.jiy.ui.theme.BorderColor
-import com.jiy.ui.theme.CardPaddingValues
-import com.jiy.ui.theme.CardShape
-import com.jiy.ui.theme.ChipPaddingValues
-import com.jiy.ui.theme.ChipShape
 import com.jiy.ui.theme.PrimaryColor
-import com.jiy.ui.theme.PrimaryContainerColor
 import com.jiy.ui.theme.SurfaceColor
-import com.jiy.user.domain.model.Career
 
 @Composable
-internal fun CareersComponent(
-  careers: List<Career>,
+internal fun CareerListComponent(
+  careers: List<CareerListItem>,
   onClick: (id: Int) -> Unit,
   onMoreClick: () -> Unit,
   modifier: Modifier = Modifier
@@ -44,7 +40,7 @@ internal fun CareersComponent(
       .fillMaxWidth()
   ) {
     careers.take(2).forEach { career ->
-      CareerComponent(
+      CareerListItemComponent(
         career = career,
         onClick = { onClick(career.id) },
         modifier = Modifier
@@ -60,63 +56,6 @@ internal fun CareersComponent(
           .fillMaxWidth()
       )
     }
-  }
-}
-
-@Composable
-private fun CareerComponent(
-  career: Career,
-  onClick: () -> Unit,
-  modifier: Modifier = Modifier
-) {
-  Column(
-    modifier = modifier
-      .clip(CardShape)
-      .scalableClick(onClick = onClick, shape = CardShape)
-      .fillMaxWidth()
-      .background(SurfaceColor)
-      .border(width = 1.dp, color = BorderColor, shape = CardShape)
-      .padding(CardPaddingValues)
-  ) {
-    Row(
-      verticalAlignment = Alignment.CenterVertically,
-      modifier = Modifier.fillMaxWidth()
-    ) {
-      Text(
-        text = career.companyName,
-        color = MaterialTheme.colorScheme.onBackground,
-        style = MaterialTheme.typography.titleSmall,
-        modifier = Modifier.weight(1F)
-      )
-      if(career.endDate == null) {
-        Text(
-          text = "재직중",
-          color = PrimaryColor,
-          style = MaterialTheme.typography.bodySmall,
-          modifier = Modifier
-            .background(PrimaryContainerColor, ChipShape)
-            .padding(ChipPaddingValues)
-        )
-      }
-    }
-    Text(
-      text = career.position,
-      color = MaterialTheme.colorScheme.onSurfaceVariant,
-      style = MaterialTheme.typography.bodyMedium,
-    )
-    Text(
-      text = "${career.startDate} ~ ${career.endDate?: ""}",
-      color = MaterialTheme.colorScheme.onSurfaceVariant,
-      style = MaterialTheme.typography.bodyMedium,
-    )
-    Text(
-      text = career.description,
-      color = MaterialTheme.colorScheme.onBackground,
-      style = MaterialTheme.typography.bodyLarge,
-      maxLines = 3,
-      modifier = Modifier
-        .padding(top = 8.dp)
-    )
   }
 }
 

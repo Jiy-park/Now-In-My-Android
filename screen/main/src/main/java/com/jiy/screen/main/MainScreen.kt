@@ -31,10 +31,12 @@ import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.jiy.career.domain.model.CareerListItem
+import com.jiy.career.presentation.component.CareerListComponentPlaceholder
+import com.jiy.career.presentation.dummy.CareerDummy
 import com.jiy.core.state.Stateful
 import com.jiy.screen.main.component.ContactBottomSheet
-import com.jiy.screen.main.component.career.CareersComponent
-import com.jiy.screen.main.component.career.CareersComponentPlaceholder
+import com.jiy.screen.main.component.career.CareerListComponent
 import com.jiy.screen.main.component.career.CareersLabel
 import com.jiy.screen.main.component.skill.SkillStackComponent
 import com.jiy.screen.main.component.skill.SkillStackComponentPlaceholder
@@ -43,7 +45,6 @@ import com.jiy.screen.main.component.user.UserComponent
 import com.jiy.screen.main.component.user.UserComponentPlaceholder
 import com.jiy.screen.main.model.ContactBottomSheetData
 import com.jiy.screen.main.model.MainScreenNavEvent
-import com.jiy.user.domain.model.Career
 import com.jiy.user.domain.model.Skill
 import com.jiy.user.domain.model.User
 import com.jiy.user.presentation.UserDummy
@@ -119,7 +120,7 @@ fun MainScreen(
 private fun MainContent(
   userState: Stateful<User>,
   skillStackState: Stateful<List<Skill>>,
-  careersState: Stateful<List<Career>>,
+  careersState: Stateful<List<CareerListItem>>,
   onPhoneIconClick: (phoneNum: String) -> Unit,
   onEmailIconClick: (email: String) -> Unit,
   onGithubIconClick: (url: String) -> Unit,
@@ -171,10 +172,10 @@ private fun MainContent(
         modifier = Modifier.padding(top = 12.dp)
       ) { state ->
         when(state) {
-          is Stateful.Loading -> CareersComponentPlaceholder()
+          is Stateful.Loading -> CareerListComponentPlaceholder()
           is Stateful.Error -> Text("오류 발생: ${state.exception.mainMessage}")
           is Stateful.Success -> {
-            CareersComponent(
+            CareerListComponent(
               careers = state.data,
               onClick = onCareerClick,
               onMoreClick = onMoreCareerClick,
@@ -191,14 +192,14 @@ private fun MainContent(
 private fun MainContentPrev() {
   var us by remember { mutableStateOf<Stateful<User>>(Stateful.Loading) }
   var sss by remember { mutableStateOf<Stateful<List<Skill>>>(Stateful.Loading) }
-  var cs by remember { mutableStateOf<Stateful<List<Career>>>(Stateful.Loading) }
+  var cs by remember { mutableStateOf<Stateful<List<CareerListItem>>>(Stateful.Loading) }
 
   val scope = rememberCoroutineScope()
 
   fun setSuccess() {
-    us = Stateful.Success(UserDummy.user())
+    us = Stateful.Success(UserDummy.userWithNetwork())
     sss = Stateful.Success(List(10) { UserDummy.skill() }.sortedByDescending { it.level })
-    cs = Stateful.Success(List(3) { UserDummy.career() })
+    cs = Stateful.Success(CareerDummy.careerList(3))
   }
 
   LaunchedEffect(Unit) {

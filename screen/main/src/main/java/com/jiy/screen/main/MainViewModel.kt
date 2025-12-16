@@ -2,6 +2,8 @@ package com.jiy.screen.main
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.jiy.career.domain.CareerRepository
+import com.jiy.career.domain.model.CareerListOption
 import com.jiy.core.state.Stateful
 import com.jiy.core.state.statefulFlowWith
 import com.jiy.user.domain.UserRepository
@@ -12,7 +14,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-  userRepository: UserRepository
+  userRepository: UserRepository,
+  careerRepository: CareerRepository,
 ) : ViewModel() {
   val userState = userRepository
     .statefulFlowWith { me() }
@@ -22,7 +25,7 @@ class MainViewModel @Inject constructor(
     .statefulFlowWith { getMySkillStack() }
     .stateIn(scope = viewModelScope, started = SharingStarted.Eagerly, initialValue = Stateful.Loading)
 
-  val careersState = userRepository
-    .statefulFlowWith { getMyCareers() }
+  val careersState = careerRepository
+    .statefulFlowWith { getMyCareers(CareerListOption(size = 3)) }
     .stateIn(scope = viewModelScope, started = SharingStarted.Eagerly, initialValue = Stateful.Loading)
 }

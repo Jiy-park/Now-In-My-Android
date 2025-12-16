@@ -94,7 +94,7 @@ internal fun UserComponent(
       )
       CircleIconButton(
         label = "GitHub",
-        icon = ImageVector.vectorResource(R.drawable.code),
+        icon = ImageVector.vectorResource(com.jiy.ui.R.drawable.code),
         onClick = { onGithubIconClick(user.githubUrl) },
       )
     }

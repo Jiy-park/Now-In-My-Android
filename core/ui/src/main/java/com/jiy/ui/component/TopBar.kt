@@ -17,8 +17,8 @@ import com.jiy.ui.R
 fun TopBar(
   title: String? = null,
   onBack: (() -> Unit)? = null,
-  modifier: Modifier = Modifier,
   actions: @Composable RowScope.() -> Unit = {},
+  modifier: Modifier = Modifier,
 ) {
   CenterAlignedTopAppBar(
     title = {
