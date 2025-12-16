@@ -5,6 +5,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
+import com.dd2d.now_in_my_android.navigation.modules.appModule
 import com.dd2d.now_in_my_android.navigation.modules.careerModule
 import com.dd2d.now_in_my_android.navigation.modules.mainModule
 import com.jiy.ui.navigation.ScreenRoute
@@ -20,6 +21,7 @@ internal fun AppNavHost(
     startDestination = startDestination,
     modifier = modifier
   ) {
+    appModule(navController)
     mainModule(navController)
     careerModule(navController)
   }
