@@ -9,6 +9,7 @@ pluginManagement {
     }
     mavenCentral()
     gradlePluginPortal()
+    includeBuild("build-logic")
   }
 }
 dependencyResolutionManagement {
@@ -22,8 +23,10 @@ dependencyResolutionManagement {
 rootProject.name = "NowInMyAndroid"
 include(":app")
 include(":core:core")
-include(":feat:user")
-include(":screen:main")
-include(":feat:career")
 include(":core:ui")
+
+include(":feat:user")
+include(":feat:career")
+
+include(":screen:main")
 include(":screen:career")
