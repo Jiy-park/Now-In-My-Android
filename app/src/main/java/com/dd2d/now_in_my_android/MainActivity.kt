@@ -8,7 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.ui.Modifier
 import com.dd2d.now_in_my_android.navigation.AppNavHost
 import com.dd2d.now_in_my_android.ui.theme.NowInMyAndroidTheme
-import com.jiy.screen.main.MainScreenRoute
+import com.jiy.screen.main.home.MainScreenRoute
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

@@ -1,4 +1,4 @@
-package com.jiy.screen.main.component.user
+package com.jiy.screen.main.home.component.user
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement

@@ -1,4 +1,4 @@
-package com.jiy.screen.main.component.skill
+package com.jiy.screen.main.home.component.skill
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding

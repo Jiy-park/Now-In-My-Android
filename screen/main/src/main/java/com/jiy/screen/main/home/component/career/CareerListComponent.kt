@@ -1,4 +1,4 @@
-package com.jiy.screen.main.component.career
+package com.jiy.screen.main.home.component.career
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -20,6 +20,7 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import com.jiy.career.domain.model.CareerListItem
 import com.jiy.career.presentation.component.CareerListItemComponent
+import com.jiy.ui.R
 import com.jiy.ui.modifier.scalableClick
 import com.jiy.ui.theme.BorderColor
 import com.jiy.ui.theme.PrimaryColor
@@ -80,7 +81,7 @@ private fun MoreCareerButton(
       style = MaterialTheme.typography.labelLarge,
     )
     Icon(
-      imageVector = ImageVector.vectorResource(com.jiy.ui.R.drawable.right),
+      imageVector = ImageVector.vectorResource(R.drawable.right),
       contentDescription = "경력 더보기",
       tint = PrimaryColor
     )

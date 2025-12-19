@@ -1,4 +1,4 @@
-package com.jiy.screen.main.component
+package com.jiy.screen.main.home.component
 
 import android.content.ClipData
 import androidx.compose.foundation.layout.Arrangement
@@ -26,7 +26,7 @@ import androidx.compose.ui.platform.LocalClipboard
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import com.jiy.screen.main.R
-import com.jiy.screen.main.model.ContactBottomSheetData
+import com.jiy.screen.main.home.model.ContactBottomSheetData
 import com.jiy.ui.modifier.scalableClick
 import com.jiy.ui.theme.Padding
 import com.jiy.ui.theme.Shape

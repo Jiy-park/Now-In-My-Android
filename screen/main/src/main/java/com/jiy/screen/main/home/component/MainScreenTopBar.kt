@@ -1,4 +1,4 @@
-package com.jiy.screen.main.component
+package com.jiy.screen.main.home.component
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable

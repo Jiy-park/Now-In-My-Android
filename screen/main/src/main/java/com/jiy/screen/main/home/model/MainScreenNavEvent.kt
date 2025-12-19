@@ -1,6 +1,6 @@
-package com.jiy.screen.main.model
+package com.jiy.screen.main.home.model
 
-import com.jiy.screen.main.MainScreen
+import com.jiy.screen.main.home.MainScreen
 
 /** [MainScreen]에서 발생할 수 있는 내비게이션 이벤트 */
 sealed interface MainScreenNavEvent {

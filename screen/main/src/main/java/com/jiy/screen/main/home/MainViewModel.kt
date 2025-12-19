@@ -1,4 +1,4 @@
-package com.jiy.screen.main
+package com.jiy.screen.main.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

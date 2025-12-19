@@ -1,4 +1,4 @@
-package com.jiy.screen.main
+package com.jiy.screen.main.home
 
 import android.content.Intent
 import androidx.compose.animation.Crossfade
@@ -35,17 +35,17 @@ import com.jiy.career.domain.model.CareerListItem
 import com.jiy.career.presentation.component.CareerListComponentPlaceholder
 import com.jiy.career.presentation.dummy.CareerDummy
 import com.jiy.core.state.Stateful
-import com.jiy.screen.main.component.ContactBottomSheet
-import com.jiy.screen.main.component.MainScreenTopBar
-import com.jiy.screen.main.component.career.CareerListComponent
-import com.jiy.screen.main.component.career.CareersLabel
-import com.jiy.screen.main.component.skill.SkillStackComponent
-import com.jiy.screen.main.component.skill.SkillStackComponentPlaceholder
-import com.jiy.screen.main.component.skill.SkillStackLabel
-import com.jiy.screen.main.component.user.UserComponent
-import com.jiy.screen.main.component.user.UserComponentPlaceholder
-import com.jiy.screen.main.model.ContactBottomSheetData
-import com.jiy.screen.main.model.MainScreenNavEvent
+import com.jiy.screen.main.home.component.ContactBottomSheet
+import com.jiy.screen.main.home.component.MainScreenTopBar
+import com.jiy.screen.main.home.component.career.CareerListComponent
+import com.jiy.screen.main.home.component.career.CareersLabel
+import com.jiy.screen.main.home.component.skill.SkillStackComponent
+import com.jiy.screen.main.home.component.skill.SkillStackComponentPlaceholder
+import com.jiy.screen.main.home.component.skill.SkillStackLabel
+import com.jiy.screen.main.home.component.user.UserComponent
+import com.jiy.screen.main.home.component.user.UserComponentPlaceholder
+import com.jiy.screen.main.home.model.ContactBottomSheetData
+import com.jiy.screen.main.home.model.MainScreenNavEvent
 import com.jiy.user.domain.model.Skill
 import com.jiy.user.domain.model.User
 import com.jiy.user.presentation.UserDummy

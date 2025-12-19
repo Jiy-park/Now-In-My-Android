@@ -1,10 +1,10 @@
-package com.jiy.screen.main
+package com.jiy.screen.main.home
 
 
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import com.jiy.screen.main.model.MainScreenNavEvent
+import com.jiy.screen.main.home.model.MainScreenNavEvent
 import com.jiy.ui.navigation.ScreenRoute
 import kotlinx.serialization.Serializable
 
