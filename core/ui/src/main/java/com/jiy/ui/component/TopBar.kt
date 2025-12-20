@@ -34,7 +34,7 @@ fun TopBar(
       onBack?.let {
         IconButton(onClick = onBack) {
           Icon(
-            imageVector = ImageVector.vectorResource(R.drawable.left),
+            imageVector = ImageVector.vectorResource(R.drawable.left_arrow),
             contentDescription = "뒤로가기"
           )
         }
