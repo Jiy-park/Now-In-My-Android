@@ -1,4 +1,4 @@
-package com.jiy.screen.main.home
+package com.jiy.screen.main.portfolio
 
 import android.content.Intent
 import androidx.compose.animation.Crossfade
@@ -35,17 +35,17 @@ import com.jiy.career.domain.model.CareerListItem
 import com.jiy.career.presentation.component.CareerListComponentPlaceholder
 import com.jiy.career.presentation.dummy.CareerDummy
 import com.jiy.core.state.Stateful
-import com.jiy.screen.main.home.component.ContactBottomSheet
-import com.jiy.screen.main.home.component.MainScreenTopBar
-import com.jiy.screen.main.home.component.career.CareerListComponent
-import com.jiy.screen.main.home.component.career.CareersLabel
-import com.jiy.screen.main.home.component.skill.SkillStackComponent
-import com.jiy.screen.main.home.component.skill.SkillStackComponentPlaceholder
-import com.jiy.screen.main.home.component.skill.SkillStackLabel
-import com.jiy.screen.main.home.component.user.UserComponent
-import com.jiy.screen.main.home.component.user.UserComponentPlaceholder
-import com.jiy.screen.main.home.model.ContactBottomSheetData
-import com.jiy.screen.main.home.model.MainScreenNavEvent
+import com.jiy.screen.main.portfolio.component.ContactBottomSheet
+import com.jiy.screen.main.portfolio.component.MainScreenTopBar
+import com.jiy.screen.main.portfolio.component.career.CareerListComponent
+import com.jiy.screen.main.portfolio.component.career.CareersLabel
+import com.jiy.screen.main.portfolio.component.skill.SkillStackComponent
+import com.jiy.screen.main.portfolio.component.skill.SkillStackComponentPlaceholder
+import com.jiy.screen.main.portfolio.component.skill.SkillStackLabel
+import com.jiy.screen.main.portfolio.component.user.UserComponent
+import com.jiy.screen.main.portfolio.component.user.UserComponentPlaceholder
+import com.jiy.screen.main.portfolio.model.ContactBottomSheetData
+import com.jiy.screen.main.model.MainScreenNavEvent
 import com.jiy.user.domain.model.Skill
 import com.jiy.user.domain.model.User
 import com.jiy.user.presentation.UserDummy
@@ -53,10 +53,12 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @Composable
-fun MainScreen(
-  onNavEvent: (MainScreenNavEvent) -> Unit,
+fun PortfolioScreen(
+  onGitHubClick: (url: String) -> Unit,
+  onCareerDetailClick: (id: Int) -> Unit,
+  onCareerListClick: () -> Unit,
   modifier: Modifier = Modifier,
-  viewModel: MainViewModel = hiltViewModel(),
+  viewModel: PortfolioViewModel = hiltViewModel(),
 ) {
   val context = LocalContext.current
 
@@ -100,9 +102,9 @@ fun MainScreen(
           },
         )
       },
-      onGithubIconClick = { onNavEvent(MainScreenNavEvent.GitHub(it)) },
-      onCareerClick = { onNavEvent(MainScreenNavEvent.CareerDetail(it)) },
-      onMoreCareerClick = { onNavEvent(MainScreenNavEvent.CareerList) },
+      onGithubIconClick = onGitHubClick,
+      onCareerClick = onCareerDetailClick,
+      onMoreCareerClick = onCareerListClick,
       modifier = Modifier
         .consumeWindowInsets(inner)
         .fillMaxSize()

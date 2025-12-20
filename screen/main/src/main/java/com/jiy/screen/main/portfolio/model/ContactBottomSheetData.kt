@@ -1,6 +1,6 @@
-package com.jiy.screen.main.home.model
+package com.jiy.screen.main.portfolio.model
 
-import com.jiy.screen.main.home.component.ContactBottomSheet
+import com.jiy.screen.main.portfolio.component.ContactBottomSheet
 
 /**
  * [ContactBottomSheet]로 보여줄 데이터 모델

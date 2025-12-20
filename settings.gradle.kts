@@ -27,6 +27,7 @@ include(":core:ui")
 
 include(":feat:user")
 include(":feat:career")
+include(":feat:toy")
 
 include(":screen:main")
 include(":screen:career")

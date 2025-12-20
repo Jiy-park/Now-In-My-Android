@@ -1,4 +1,4 @@
-package com.jiy.screen.main.home.component.career
+package com.jiy.screen.main.portfolio.component.career
 
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text

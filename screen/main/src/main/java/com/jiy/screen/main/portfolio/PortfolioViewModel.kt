@@ -1,4 +1,4 @@
-package com.jiy.screen.main.home
+package com.jiy.screen.main.portfolio
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor(
+class PortfolioViewModel @Inject constructor(
   userRepository: UserRepository,
   careerRepository: CareerRepository,
 ) : ViewModel() {

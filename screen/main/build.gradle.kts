@@ -11,4 +11,5 @@ dependencies {
 
   implementation(project(":feat:career"))
   implementation(project(":feat:user"))
+  implementation(project(":feat:toy"))
 }
