@@ -18,4 +18,6 @@ object Shape {
 
   /** 칩 컴포넌트 모양 */
   val Chip: Shape = CircleShape
+
+  val SmallTag: Shape = RoundedCornerShape(4.dp)
 }

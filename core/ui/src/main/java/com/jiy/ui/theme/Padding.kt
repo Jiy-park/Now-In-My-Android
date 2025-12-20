@@ -46,4 +46,5 @@ object Padding {
   val BottomSheet: PaddingValues = PaddingValues(horizontal = Component.Horizontal.Medium, vertical = Component.Vertical.Medium)
   val Card: PaddingValues = PaddingValues(horizontal = 16.dp, vertical = 16.dp)
   val Chip: PaddingValues = PaddingValues(horizontal = 12.dp, vertical = 8.dp)
+  val Tag: PaddingValues = PaddingValues(horizontal = 12.dp, vertical = 4.dp)
 }
