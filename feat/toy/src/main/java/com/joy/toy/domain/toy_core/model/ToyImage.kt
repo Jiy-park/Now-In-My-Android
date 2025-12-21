@@ -8,11 +8,13 @@ package com.joy.toy.domain.toy_core.model
  * [toyResourceId]는 하나의 장난감에서의 버전 구분을 위한 아이디이며, [ToyDetail.id], [ToyListItem.id]을 의미합니다.
  * 이는 데이터베이스에서 리소스 구분용 아이디와 같습니다.
  * @property imageUrl 장난감 이미지 url
+ * @property title 이미지 이름
  * @property description 이미지 설명
  */
 data class ToyImage(
   val id: Int,
   val toyResourceId: Int,
   val imageUrl: String,
-  val description: String,
+  val title: String,
+  val description: String?,
 )

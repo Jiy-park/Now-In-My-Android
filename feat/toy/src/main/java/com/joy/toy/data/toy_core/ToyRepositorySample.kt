@@ -28,7 +28,7 @@ internal object ToyRepositorySample: ToyRepository {
     }
   }
 
-  override suspend fun getToy(id: Int): ToyDetail {
+  override suspend fun getToyDetail(id: Int): ToyDetail {
     delay(300)
     val toyId = Random.nextInt()
     return ToyDetail(
@@ -42,19 +42,26 @@ internal object ToyRepositorySample: ToyRepository {
           id = it+1,
           toyResourceId = id,
           imageUrl = "https://image.utoimage.com/preview/cp872722/2022/12/202212008462_500.jpg",
-          description = "장난감 이미지 ${it + 1}",
+          title = "장난감 이미지 타이틀 ${it + 1}",
+          description = "장난감 이미지 설명${it + 1}",
         )
       },
       keywords = List((1..9).random()) { "키워드${it+1}" },
       codes = List(2) {
+        val code = buildString {
+          repeat(it+1) { j ->
+            append("""
+            fun someCode$j() {
+              println("hello world!")
+            }
+          """.trimIndent()
+            )
+          }
+        }
         ToyCode(
           id = it+1,
           toyResourceId = id,
-          code = """
-            fun someCode() {
-              println("hello world!")
-            }
-          """.trimIndent(),
+          code = code,
           description = "코드 설명${it+1}",
         )
       },
