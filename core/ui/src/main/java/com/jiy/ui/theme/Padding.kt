@@ -26,6 +26,13 @@ object Padding {
     val Inset: PaddingValues = PaddingValues(horizontal = Horizontal, vertical = Vertical)
   }
 
+  val XS: Dp = 4.dp
+  val S: Dp = 8.dp
+  val M: Dp = 12.dp
+  val L: Dp = 16.dp
+  val XL: Dp = 20.dp
+  val XXL: Dp = 24.dp
+
   /** 컴포넌트 단위 패딩 값 */
   object Component {
     /** 좌우 패딩 */
