@@ -31,3 +31,4 @@ include(":feat:toy")
 
 include(":screen:main")
 include(":screen:career")
+include(":screen:toy")

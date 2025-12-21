@@ -8,6 +8,7 @@ import androidx.navigation.compose.rememberNavController
 import com.dd2d.now_in_my_android.navigation.modules.appModule
 import com.dd2d.now_in_my_android.navigation.modules.careerModule
 import com.dd2d.now_in_my_android.navigation.modules.mainModule
+import com.dd2d.now_in_my_android.navigation.modules.toyModule
 import com.jiy.ui.navigation.ScreenRoute
 
 @Composable
@@ -24,5 +25,6 @@ internal fun AppNavHost(
     appModule(navController)
     mainModule(navController)
     careerModule(navController)
+    toyModule(navController)
   }
 }

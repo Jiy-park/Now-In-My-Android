@@ -7,18 +7,30 @@ import androidx.navigation.NavHostController
 import com.dd2d.now_in_my_android.webview.WebviewScreenRoute
 import com.jiy.screen.career.detail.CareerDetailScreenRoute
 import com.jiy.screen.career.list.CareerListScreenRoute
-import com.jiy.screen.main.home.model.MainScreenNavEvent
-import com.jiy.screen.main.home.routeMainScreen
+import com.jiy.screen.main.model.MainScreenNavEvent
+import com.jiy.screen.main.routeMainScreen
+import com.jiy.screen.toy.detail.ToyDetailScreenRoute
 
-internal fun NavGraphBuilder.mainModule(
-  navController: NavHostController,
-) {
+internal fun NavGraphBuilder.mainModule(navController: NavHostController) {
   routeMainScreen(
     onNavEvent = { event ->
       when(event) {
-        is MainScreenNavEvent.GitHub -> { navController.navigate(WebviewScreenRoute(title = "GitHub", event.url)) }
-        is MainScreenNavEvent.CareerDetail -> { navController.navigate(CareerDetailScreenRoute(event.id)) }
-        is MainScreenNavEvent.CareerList -> { navController.navigate(CareerListScreenRoute) }
+        is MainScreenNavEvent.Portfolio.CareerDetail -> {
+          navController.navigate(CareerDetailScreenRoute(event.id))
+        }
+        is MainScreenNavEvent.Portfolio.CareerList -> {
+          navController.navigate(CareerListScreenRoute)
+        }
+        is MainScreenNavEvent.Portfolio.GitHub -> {
+          navController.navigate(WebviewScreenRoute(title = "GitHub", event.url))
+        }
+
+        is MainScreenNavEvent.Playground.ToyDetail -> {
+          navController.navigate(ToyDetailScreenRoute(event.id))
+        }
+        is MainScreenNavEvent.Playground.ToyList -> {
+//          navController.navigate()
+        }
       }
     },
     modifier = Modifier.fillMaxSize(),
