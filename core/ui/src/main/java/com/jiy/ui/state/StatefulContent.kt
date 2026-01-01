@@ -9,10 +9,10 @@ import com.jiy.core.state.Stateful
 @Composable
 fun <T> StatefulContent(
   state: Stateful<T>,
+  modifier: Modifier = Modifier,
   loadingContent: @Composable () -> Unit = {  },
   errorContent: @Composable (exception: UIException) -> Unit = {},
   successContent: @Composable (data: T) -> Unit,
-  modifier: Modifier = Modifier
 ) {
   Crossfade(
     targetState = state,

@@ -10,6 +10,7 @@ import com.jiy.screen.career.list.CareerListScreenRoute
 import com.jiy.screen.main.model.MainScreenNavEvent
 import com.jiy.screen.main.routeMainScreen
 import com.jiy.screen.toy.detail.ToyDetailScreenRoute
+import com.jiy.screen.toy.list.ToyListScreenRoute
 
 internal fun NavGraphBuilder.mainModule(navController: NavHostController) {
   routeMainScreen(
@@ -29,7 +30,7 @@ internal fun NavGraphBuilder.mainModule(navController: NavHostController) {
           navController.navigate(ToyDetailScreenRoute(event.id))
         }
         is MainScreenNavEvent.Playground.ToyList -> {
-//          navController.navigate()
+          navController.navigate(ToyListScreenRoute)
         }
       }
     },
