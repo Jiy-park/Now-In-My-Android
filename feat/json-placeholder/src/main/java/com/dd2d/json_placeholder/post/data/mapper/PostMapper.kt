@@ -10,7 +10,7 @@ internal fun PostResponseDto.toPost(): Post {
     author = PostAuthor(
       id = userId,
       nickname = getUserNameById(userId),
-      profileImageUrl = getRandomProfileImage(),
+      profileImageUrl = "https://i.pravatar.cc/150?img=$userId",
     ),
     title = title,
     body = body,
@@ -33,21 +33,4 @@ private fun getUserNameById(id: Int): String {
   )
 
   return users.find { it.first == id }?.second ?: "user$id"
-}
-
-// json placeholder에서 제공하지 않아 임의로 생성
-private fun getRandomProfileImage(): String? {
-  return listOf(
-    null, null, null,
-    "https://i.pravatar.cc/150?img=1",
-    "https://i.pravatar.cc/150?img=2",
-    "https://i.pravatar.cc/150?img=3",
-    "https://i.pravatar.cc/150?img=4",
-    "https://i.pravatar.cc/150?img=5",
-    "https://i.pravatar.cc/150?img=6",
-    "https://i.pravatar.cc/150?img=7",
-    "https://i.pravatar.cc/150?img=8",
-    "https://i.pravatar.cc/150?img=9",
-    "https://i.pravatar.cc/150?img=10",
-  ).random()
 }
