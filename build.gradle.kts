@@ -12,6 +12,14 @@ plugins {
 }
 
 allprojects {
+  tasks.withType<KotlinCompile> {
+    // 모든 코틀린 모듈에 적용
+    compilerOptions {
+      optIn.addAll(
+        "kotlinx.coroutines.ExperimentalCoroutinesApi",
+      )
+    }
+  }
   plugins.withId("org.jetbrains.kotlin.plugin.compose") {
     // 컴포즈 플러그인 종속이 있을 떄 적용
     tasks.withType<KotlinCompile> {
