@@ -3,6 +3,7 @@ package com.dd2d.json_placeholder.presentation.list.content
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
@@ -20,14 +21,16 @@ import androidx.compose.ui.unit.sp
 import com.dd2d.json_placeholder.domain.post.model.Post
 
 @Composable
-internal fun PostListSuccessContent(
+internal fun PostListContent(
   postList: List<Post>,
   onPostClick: (id: Int) -> Unit,
-  modifier: Modifier = Modifier
+  modifier: Modifier = Modifier,
+  contentPadding: PaddingValues = PaddingValues()
 ) {
   Column(modifier = modifier) {
     LazyColumn(
       verticalArrangement = Arrangement.spacedBy(16.dp),
+      contentPadding = contentPadding,
       modifier = Modifier.fillMaxSize()
     ) {
       items(items = postList, key = Post::id) { post ->
@@ -75,8 +78,8 @@ private fun PostComponent(
 
 @Preview
 @Composable
-private fun PostListSuccessContentPrev() {
-  PostListSuccessContent(
+private fun PostListContentPrev() {
+  PostListContent(
     postList = List(5) { Post(it, 1, "title $it", "body $it") },
     onPostClick = {},
     modifier = Modifier

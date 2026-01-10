@@ -1,6 +1,6 @@
 package com.dd2d.json_placeholder.presentation.list
 
-import androidx.compose.animation.Crossfade
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -11,10 +11,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.dd2d.core.stateful.Stateful
-import com.dd2d.json_placeholder.presentation.list.content.PostListErrorContent
-import com.dd2d.json_placeholder.presentation.list.content.PostListLoadingContent
-import com.dd2d.json_placeholder.presentation.list.content.PostListSuccessContent
+import com.dd2d.json_placeholder.presentation._core.content.StatefulContent
+import com.dd2d.json_placeholder.presentation.list.content.PostListContent
 
 @Composable
 fun PostListScreen(
@@ -25,26 +23,21 @@ fun PostListScreen(
   val postListState by viewModel.postListState.collectAsStateWithLifecycle()
 
   Scaffold(modifier = modifier) { inner ->
-    Crossfade(
-      targetState = postListState,
+    StatefulContent(
+      state = postListState,
+      errorMessage = { "Post 목록을 불러오지 못했습니다." },
       modifier = Modifier
         .consumeWindowInsets(inner)
         .fillMaxSize()
         .padding(inner)
-        .padding(horizontal = 16.dp, vertical = 20.dp)
-    ) { state ->
-      when(state) {
-        is Stateful.Loading -> PostListLoadingContent(modifier = Modifier.fillMaxSize())
-        is Stateful.Error -> PostListErrorContent(throwable = state.exception, modifier = Modifier.fillMaxSize())
-        is Stateful.Success -> {
-          PostListSuccessContent(
-            postList = state.data,
-            onPostClick = onPostClick,
-            modifier = Modifier
-              .fillMaxSize()
-          )
-        }
-      }
+    ) { postList ->
+      PostListContent(
+        postList = postList,
+        onPostClick = onPostClick,
+        contentPadding = PaddingValues(vertical = 20.dp),
+        modifier = Modifier
+          .fillMaxSize()
+      )
     }
   }
 }

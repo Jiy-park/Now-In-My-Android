@@ -1,7 +1,6 @@
 package com.dd2d.json_placeholder.presentation.detail
 
 import androidx.activity.compose.BackHandler
-import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.consumeWindowInsets
@@ -22,10 +21,8 @@ import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.dd2d.core.stateful.Stateful
 import com.dd2d.json_placeholder.domain.post.model.Post
-import com.dd2d.json_placeholder.presentation._core.content.ErrorContent
-import com.dd2d.json_placeholder.presentation._core.content.LoadingContent
+import com.dd2d.json_placeholder.presentation._core.content.StatefulContent
 import com.dd2d.json_placeholder.presentation.detail.component.TopBar
 
 @Composable
@@ -41,24 +38,19 @@ fun PostDetailScreen(
     topBar = { TopBar(title = "Post 상세", onBack = onBack) },
     modifier = modifier
   ) { inner ->
-    Crossfade(
-      targetState = postDetailState,
+    StatefulContent(
+      state = postDetailState,
+      errorMessage = { "Post를 불러오지 못했습니다." },
       modifier = Modifier
         .consumeWindowInsets(inner)
         .fillMaxSize()
         .padding(inner)
-    ) { state ->
-      when(state) {
-        is Stateful.Loading -> LoadingContent(Modifier.fillMaxSize())
-        is Stateful.Error -> ErrorContent(message = "Post를 불러오지 못했습니다.", throwable = state.exception)
-        is Stateful.Success -> {
-          PostDetailContent(
-            postDetail = state.data,
-            contentPadding = PaddingValues(horizontal = 16.dp, vertical = 20.dp),
-            modifier = Modifier.fillMaxSize()
-          )
-        }
-      }
+    ) { postDetail ->
+      PostDetailContent(
+        postDetail = postDetail,
+        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 20.dp),
+        modifier = Modifier.fillMaxSize()
+      )
     }
   }
 }
