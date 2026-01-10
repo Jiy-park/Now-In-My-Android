@@ -17,6 +17,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.role
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
@@ -38,6 +42,10 @@ internal fun PostAuthorComponent(
     verticalAlignment = Alignment.CenterVertically,
     horizontalArrangement = Arrangement.spacedBy(8.dp),
     modifier = modifier
+      .semantics {
+        contentDescription = "${author.nickname} 상세보기"
+        role = Role.Button
+      }
       .widthIn(max = 150.dp)
       .clip(RoundedCornerShape(8.dp))
       .clickable(onClick = onClick)
@@ -50,7 +58,7 @@ internal fun PostAuthorComponent(
         .memoryCachePolicy(CachePolicy.DISABLED)
         .diskCachePolicy(CachePolicy.DISABLED)
         .build(),
-      contentDescription = "${author.nickname} 프로필 이미지",
+      contentDescription = null,
       contentScale = ContentScale.Crop,
       modifier = Modifier
         .clip(CircleShape)
