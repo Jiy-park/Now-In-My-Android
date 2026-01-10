@@ -14,7 +14,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
@@ -73,16 +72,5 @@ private fun PostComponent(
       )
     },
     modifier = modifier,
-  )
-}
-
-@Preview
-@Composable
-private fun PostListContentPrev() {
-  PostListContent(
-    postList = List(5) { Post(it, 1, "title $it", "body $it") },
-    onPostClick = {},
-    modifier = Modifier
-      .fillMaxSize()
   )
 }

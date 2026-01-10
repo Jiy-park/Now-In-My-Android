@@ -12,5 +12,8 @@ fun NavGraphBuilder.jsonPlaceholder(navController: NavHostController) {
       navController.navigate(PostDetailScreenRoute(postId))
     }
   )
-  routePostDetailScreen(onBack = navController::popBackStack)
+  routePostDetailScreen(
+    onBack = navController::popBackStack,
+    onUserClick = {},
+  )
 }

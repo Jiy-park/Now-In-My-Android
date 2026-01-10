@@ -67,6 +67,9 @@ dependencies {
   implementation(libs.hilt.navigation.compose)
   ksp(libs.hilt.compiler)
 
+  implementation(libs.coil)
+  implementation(libs.coil.network.okhhpt)
+
   implementation(project(":core:core"))
   implementation(project(":core:network"))
 }

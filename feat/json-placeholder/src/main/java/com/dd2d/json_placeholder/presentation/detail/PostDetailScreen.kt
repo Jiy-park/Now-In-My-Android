@@ -23,11 +23,13 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.dd2d.json_placeholder.domain.post.model.Post
 import com.dd2d.json_placeholder.presentation._core.content.StatefulContent
+import com.dd2d.json_placeholder.presentation.detail.component.PostAuthorComponent
 import com.dd2d.json_placeholder.presentation.detail.component.TopBar
 
 @Composable
 fun PostDetailScreen(
   onBack: () -> Unit,
+  onUserClick: (userId: Int) -> Unit,
   modifier: Modifier = Modifier,
   viewModel: PostDetailViewModel = hiltViewModel()
 ) {
@@ -48,6 +50,7 @@ fun PostDetailScreen(
     ) { postDetail ->
       PostDetailContent(
         postDetail = postDetail,
+        onPostAuthorClick = onUserClick,
         contentPadding = PaddingValues(horizontal = 16.dp, vertical = 20.dp),
         modifier = Modifier.fillMaxSize()
       )
@@ -58,6 +61,7 @@ fun PostDetailScreen(
 @Composable
 private fun PostDetailContent(
   postDetail: Post,
+  onPostAuthorClick: (authorId: Int) -> Unit,
   modifier: Modifier = Modifier,
   contentPadding: PaddingValues = PaddingValues()
 ) {
@@ -66,6 +70,11 @@ private fun PostDetailContent(
       .verticalScroll(rememberScrollState())
       .padding(contentPadding)
   ) {
+    PostAuthorComponent(
+      author = postDetail.author,
+      onClick = { onPostAuthorClick(postDetail.author.id) },
+      contentPadding = PaddingValues(horizontal = 8.dp, vertical = 4.dp),
+    )
     Text(
       text = postDetail.title,
       fontWeight = FontWeight.W600,
@@ -73,7 +82,7 @@ private fun PostDetailContent(
       fontSize = 18.sp,
       lineHeight = 1.4.em,
     )
-    HorizontalDivider(modifier = Modifier.padding(vertical = 24.dp))
+    HorizontalDivider(modifier = Modifier.padding(vertical = 16.dp))
     Text(
       text = postDetail.body,
       fontWeight = FontWeight.W400,
