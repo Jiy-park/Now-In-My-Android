@@ -51,6 +51,7 @@ private fun PostComponent(
   modifier: Modifier = Modifier
 ) {
   ListItem(
+    overlineContent = { PostAuthorComponent(author = post.author) },
     headlineContent = {
       Text(
         text = post.title,
