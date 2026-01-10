@@ -5,7 +5,7 @@ import javax.annotation.concurrent.Immutable
 @Immutable
 data class Post(
   val id: Int,
-  val userId: Int,
+  val author: PostAuthor,
   val title: String,
   val body: String,
 )
