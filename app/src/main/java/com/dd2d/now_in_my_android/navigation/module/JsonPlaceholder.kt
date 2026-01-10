@@ -5,6 +5,8 @@ import androidx.navigation.NavHostController
 import com.dd2d.json_placeholder.post.presentation.detail.PostDetailScreenRoute
 import com.dd2d.json_placeholder.post.presentation.detail.routePostDetailScreen
 import com.dd2d.json_placeholder.post.presentation.list.routePostListScreen
+import com.dd2d.json_placeholder.user.presentation.detail.UserDetailScreenRoute
+import com.dd2d.json_placeholder.user.presentation.detail.routeUserDetailScreen
 
 fun NavGraphBuilder.jsonPlaceholder(navController: NavHostController) {
   routePostListScreen(
@@ -14,6 +16,9 @@ fun NavGraphBuilder.jsonPlaceholder(navController: NavHostController) {
   )
   routePostDetailScreen(
     onBack = navController::popBackStack,
-    onUserClick = {},
+    onUserClick = { userId ->
+      navController.navigate(UserDetailScreenRoute(userId))
+    },
   )
+  routeUserDetailScreen(onBack = navController::popBackStack)
 }

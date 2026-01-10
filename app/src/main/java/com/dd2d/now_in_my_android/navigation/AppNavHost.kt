@@ -15,7 +15,7 @@ fun AppNavHost(
 ) {
   NavHost(
     navController = navController,
-    startDestination = _root_ide_package_.com.dd2d.json_placeholder.post.presentation.list.PostListScreenRoute,
+    startDestination = PostListScreenRoute,
     modifier = modifier
   ) {
     jsonPlaceholder(navController)
