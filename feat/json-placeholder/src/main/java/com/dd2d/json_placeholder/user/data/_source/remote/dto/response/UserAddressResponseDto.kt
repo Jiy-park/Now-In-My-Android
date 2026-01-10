@@ -3,7 +3,7 @@ package com.dd2d.json_placeholder.user.data._source.remote.dto.response
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class UserAddressResponseDto(
+internal data class UserAddressResponseDto(
   val street: String,
   val suite: String,
   val city: String,
