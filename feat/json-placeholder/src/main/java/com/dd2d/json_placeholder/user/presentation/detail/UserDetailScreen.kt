@@ -20,11 +20,9 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.dd2d.core.stateful.Stateful
+import com.dd2d.json_placeholder._core.ui.component.TopBar
+import com.dd2d.json_placeholder._core.ui.content.StatefulContent
 import com.dd2d.json_placeholder.user.domain.model.User
-import com.dd2d.json_placeholder.user.presentation.detail.component.ErrorContent
-import com.dd2d.json_placeholder.user.presentation.detail.component.LoadingContent
-import com.dd2d.json_placeholder.user.presentation.detail.component.StatefulContent
-import com.dd2d.json_placeholder.user.presentation.detail.component.TopBar
 import com.dd2d.json_placeholder.user.presentation.detail.component.UserDetailScreenTabComponent
 import com.dd2d.json_placeholder.user.presentation.detail.component.UserProfile
 import com.dd2d.json_placeholder.user.presentation.detail.component.UserTodoListComponent
@@ -88,26 +86,15 @@ private fun UserDetailContent(
     ) { tab ->
       when(tab) {
         UserDetailScreenTab.Todos -> {
-          Crossfade(
-            targetState = todoListUIState,
-            modifier = modifier
-          ) { state ->
-            when(state) {
-              is Stateful.Loading -> LoadingContent(modifier = Modifier.fillMaxSize())
-              is Stateful.Error -> {
-                ErrorContent(
-                  message = "TODO 목록을 조회하지 못했습니다.",
-                  throwable = state.exception,
-                  modifier = Modifier.fillMaxSize()
-                )
-              }
-              is Stateful.Success -> {
-                UserTodoListComponent(
-                  todoListUIState = state.data,
-                  modifier = Modifier.fillMaxSize(),
-                )
-              }
-            }
+          StatefulContent(
+            state = todoListUIState,
+            errorMessage = { "TODO 목록을 조회하지 못했습니다." },
+            modifier = Modifier.fillMaxSize()
+          ) { todoListUIState ->
+            UserTodoListComponent(
+              todoListUIState = todoListUIState,
+              modifier = Modifier.fillMaxSize(),
+            )
           }
         }
       }

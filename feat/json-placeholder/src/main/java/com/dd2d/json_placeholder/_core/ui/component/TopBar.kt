@@ -1,4 +1,4 @@
-package com.dd2d.json_placeholder.user.presentation.detail.component
+package com.dd2d.json_placeholder._core.ui.component
 
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton

@@ -21,10 +21,10 @@ import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.dd2d.json_placeholder._core.ui.component.TopBar
+import com.dd2d.json_placeholder._core.ui.content.StatefulContent
 import com.dd2d.json_placeholder.post.domain.model.Post
-import com.dd2d.json_placeholder.post.presentation._core.content.StatefulContent
-import com.dd2d.json_placeholder.post.presentation.detail.component.PostAuthorComponent
-import com.dd2d.json_placeholder.post.presentation.detail.component.TopBar
+import com.dd2d.json_placeholder.post.presentation.detail.component.ClickablePostAuthorComponent
 
 @Composable
 fun PostDetailScreen(
@@ -70,7 +70,7 @@ private fun PostDetailContent(
       .verticalScroll(rememberScrollState())
       .padding(contentPadding)
   ) {
-    PostAuthorComponent(
+    ClickablePostAuthorComponent(
       author = postDetail.author,
       onClick = { onPostAuthorClick(postDetail.author.id) },
       contentPadding = PaddingValues(horizontal = 8.dp, vertical = 4.dp),

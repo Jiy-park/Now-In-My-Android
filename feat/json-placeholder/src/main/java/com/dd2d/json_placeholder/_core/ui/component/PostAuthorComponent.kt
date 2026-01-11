@@ -1,4 +1,4 @@
-package com.dd2d.json_placeholder.post.presentation.list.content
+package com.dd2d.json_placeholder._core.ui.component
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row

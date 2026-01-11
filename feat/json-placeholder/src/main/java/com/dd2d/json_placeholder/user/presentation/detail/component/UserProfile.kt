@@ -7,6 +7,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
@@ -26,7 +27,10 @@ internal fun UserProfile(
   user: User,
   modifier: Modifier = Modifier
 ) {
-  Column(modifier = modifier) {
+  Column(
+    horizontalAlignment = Alignment.CenterHorizontally,
+    modifier = modifier
+  ) {
     AsyncImage(
       model = ImageRequest.Builder(LocalContext.current)
         .data(user.profileImageUrl?: R.drawable.default_profile)

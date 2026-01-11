@@ -32,7 +32,7 @@ import com.dd2d.json_placeholder.R
 import com.dd2d.json_placeholder.post.domain.model.PostAuthor
 
 @Composable
-internal fun PostAuthorComponent(
+internal fun ClickablePostAuthorComponent(
   author: PostAuthor,
   onClick: () -> Unit,
   modifier: Modifier = Modifier,

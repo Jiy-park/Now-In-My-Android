@@ -1,4 +1,4 @@
-package com.dd2d.json_placeholder.user.presentation.detail.component
+package com.dd2d.json_placeholder._core.ui.content
 
 import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.layout.fillMaxSize
