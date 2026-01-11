@@ -15,8 +15,8 @@ import javax.inject.Inject
 internal class PostRepositoryImpl @Inject constructor(
   private val postApi: PostApi,
 ): PostRepository {
-  override suspend fun getPostList(): List<Post> {
-    val response = postApi.getPosts()
+  override suspend fun getPostList(authorId: Int?): List<Post> {
+    val response = postApi.getPosts(userId = authorId)
     if(!response.isSuccessful) {
       throw HttpException(response)
     }

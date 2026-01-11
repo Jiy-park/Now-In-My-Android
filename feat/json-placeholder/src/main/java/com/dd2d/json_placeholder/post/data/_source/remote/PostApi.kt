@@ -10,10 +10,13 @@ import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 internal interface PostApi {
   @GET("posts")
-  suspend fun getPosts(): Response<List<PostResponseDto>>
+  suspend fun getPosts(
+    @Query("userId") userId: Int?,
+  ): Response<List<PostResponseDto>>
 
   @GET("posts/{id}")
   suspend fun getPost(

@@ -15,6 +15,6 @@ import javax.inject.Inject
 class PostListViewModel @Inject constructor(
   postRepository: PostRepository
 ) : ViewModel() {
-  val postListState: StateFlow<Stateful<List<Post>>> = statefulFlow { postRepository.getPostList() }
+  val postListState: StateFlow<Stateful<List<Post>>> = statefulFlow { postRepository.getPostList(authorId = null) }
     .stateInWhileSubscribed(scope = viewModelScope, initialValue = Stateful.Loading)
 }
