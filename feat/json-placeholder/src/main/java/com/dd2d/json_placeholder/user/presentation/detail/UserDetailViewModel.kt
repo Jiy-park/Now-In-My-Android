@@ -8,6 +8,7 @@ import com.dd2d.core.flow.stateInWhileSubscribed
 import com.dd2d.core.stateful.Stateful
 import com.dd2d.core.stateful.mapSuccessState
 import com.dd2d.core.stateful.statefulFlow
+import com.dd2d.json_placeholder.album.domain.AlbumRepository
 import com.dd2d.json_placeholder.post.domain.PostRepository
 import com.dd2d.json_placeholder.user.domain.UserRepository
 import com.dd2d.json_placeholder.user.presentation.detail.model.TodoListUIState
@@ -23,6 +24,7 @@ class UserDetailViewModel @Inject constructor(
   savedStateHandle: SavedStateHandle,
   userRepository: UserRepository,
   postRepository: PostRepository,
+  albumRepository: AlbumRepository,
 ) : ViewModel() {
   val userDetailScreenRoute = savedStateHandle.toRoute<UserDetailScreenRoute>()
 
@@ -52,5 +54,9 @@ class UserDetailViewModel @Inject constructor(
 
   /** 유저 작성 게시물 */
   internal val postListState = statefulFlow { postRepository.getPostList(authorId = userDetailScreenRoute.userId) }
+    .stateInWhileSubscribed(scope = viewModelScope, initialValue = Stateful.Loading)
+
+  /** 유저 작성 앨범 */
+  internal val albumListState = statefulFlow { albumRepository.getAlbumList(authorId = userDetailScreenRoute.userId) }
     .stateInWhileSubscribed(scope = viewModelScope, initialValue = Stateful.Loading)
 }

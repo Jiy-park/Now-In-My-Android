@@ -1,5 +1,6 @@
 package com.dd2d.json_placeholder.user.data
 
+import com.dd2d.json_placeholder._core.data.getUserProfileImageById
 import com.dd2d.json_placeholder.user.data._source.remote.UserApi
 import com.dd2d.json_placeholder.user.domain.UserRepository
 import com.dd2d.json_placeholder.user.domain.model.User
@@ -20,7 +21,7 @@ internal class UserRepositoryImpl @Inject constructor(
         User(
           id = dto.id,
           nickname = dto.username,
-          profileImageUrl = "https://i.pravatar.cc/150?img=${dto.id}"
+          profileImageUrl = getUserProfileImageById(dto.id)
         )
       }
       ?: throw IllegalStateException("Response body is null")

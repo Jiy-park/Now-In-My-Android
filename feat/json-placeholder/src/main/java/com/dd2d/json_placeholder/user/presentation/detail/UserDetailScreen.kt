@@ -21,8 +21,10 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.dd2d.core.stateful.Stateful
 import com.dd2d.json_placeholder._core.ui.component.TopBar
 import com.dd2d.json_placeholder._core.ui.content.StatefulContent
+import com.dd2d.json_placeholder.album.domain.model.Album
 import com.dd2d.json_placeholder.post.domain.model.Post
 import com.dd2d.json_placeholder.user.domain.model.User
+import com.dd2d.json_placeholder.user.presentation.detail.component.UserAlbumListComponent
 import com.dd2d.json_placeholder.user.presentation.detail.component.UserDetailScreenTabComponent
 import com.dd2d.json_placeholder.user.presentation.detail.component.UserPostListComponent
 import com.dd2d.json_placeholder.user.presentation.detail.component.UserProfile
@@ -34,12 +36,14 @@ import com.dd2d.json_placeholder.user.presentation.detail.model.UserDetailScreen
 fun UserDetailScreen(
   onBack: () -> Unit,
   onPostClick: (id: Int) -> Unit,
+  onAlbumClick: (id: Int) -> Unit,
   modifier: Modifier = Modifier,
   viewModel: UserDetailViewModel = hiltViewModel()
 ) {
   val userDetailState by viewModel.userDetailState.collectAsStateWithLifecycle()
   val todoListUIState by viewModel.todoListUIState.collectAsStateWithLifecycle()
   val postListState by viewModel.postListState.collectAsStateWithLifecycle()
+  val albumListState by viewModel.albumListState.collectAsStateWithLifecycle()
 
   Scaffold(
     topBar = { TopBar(title = "User 상세", onBack = onBack) },
@@ -59,6 +63,8 @@ fun UserDetailScreen(
         onTodoListCompleteFilterChange = viewModel::changeTodoListCompleteFilter,
         postListState = postListState,
         onPostClick = onPostClick,
+        albumListState = albumListState,
+        onAlbumClick = onAlbumClick,
         contentPadding = PaddingValues(horizontal = 16.dp, vertical = 20.dp),
         modifier = Modifier
           .fillMaxSize()
@@ -74,6 +80,8 @@ private fun UserDetailContent(
   onTodoListCompleteFilterChange: (Boolean?) -> Unit,
   postListState: Stateful<List<Post>>,
   onPostClick: (id: Int) -> Unit,
+  albumListState: Stateful<List<Album>>,
+  onAlbumClick: (id: Int) -> Unit,
   modifier: Modifier = Modifier,
   contentPadding: PaddingValues = PaddingValues()
 ) {
@@ -117,6 +125,20 @@ private fun UserDetailContent(
             UserPostListComponent(
               postList = postList,
               onPostClick = onPostClick,
+              modifier = Modifier.fillMaxSize(),
+            )
+          }
+        }
+
+        UserDetailScreenTab.Albums -> {
+          StatefulContent(
+            state = albumListState,
+            errorMessage = { "Album 목록을 조회하지 못했습니다." },
+            modifier = Modifier.fillMaxSize()
+          ) { albumList ->
+            UserAlbumListComponent(
+              albumList = albumList,
+              onAlbumClick = onAlbumClick,
               modifier = Modifier.fillMaxSize(),
             )
           }

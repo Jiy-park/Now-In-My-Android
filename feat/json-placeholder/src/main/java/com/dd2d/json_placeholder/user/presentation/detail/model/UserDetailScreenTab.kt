@@ -5,5 +5,6 @@ import androidx.compose.runtime.Immutable
 @Immutable
 internal enum class UserDetailScreenTab(val label: String) {
   Todos(label = "TODO"),
-  Posts(label = "Post")
+  Posts(label = "Post"),
+  Albums(label = "Album")
 }
