@@ -10,11 +10,13 @@ data class UserDetailScreenRoute(val userId: Int)
 
 fun NavGraphBuilder.routeUserDetailScreen(
   onBack: () -> Unit,
+  onPostClick: (postId: Int) -> Unit,
   modifier: Modifier = Modifier,
 ) {
   composable<UserDetailScreenRoute> {
     UserDetailScreen(
       onBack = onBack,
+      onPostClick = onPostClick,
       modifier = modifier,
     )
   }

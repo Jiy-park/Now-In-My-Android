@@ -32,12 +32,13 @@ import com.dd2d.json_placeholder.user.presentation.detail.model.TodoListUIState
 @Composable
 internal fun UserTodoListComponent(
   todoListUIState: TodoListUIState,
+  onFilterChange: (Boolean?) -> Unit,
   modifier: Modifier = Modifier
 ) {
   Column(modifier = modifier) {
     CompleteFilter(
       completeFilter = todoListUIState.completeFilter,
-      onFilterChange = todoListUIState.onFilterChange,
+      onFilterChange = onFilterChange,
       modifier = Modifier.align(Alignment.End),
     )
     LazyColumn(

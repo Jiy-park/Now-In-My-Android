@@ -1,6 +1,5 @@
 package com.dd2d.json_placeholder.user.presentation.detail
 
-import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -12,7 +11,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -22,8 +21,10 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.dd2d.core.stateful.Stateful
 import com.dd2d.json_placeholder._core.ui.component.TopBar
 import com.dd2d.json_placeholder._core.ui.content.StatefulContent
+import com.dd2d.json_placeholder.post.domain.model.Post
 import com.dd2d.json_placeholder.user.domain.model.User
 import com.dd2d.json_placeholder.user.presentation.detail.component.UserDetailScreenTabComponent
+import com.dd2d.json_placeholder.user.presentation.detail.component.UserPostListComponent
 import com.dd2d.json_placeholder.user.presentation.detail.component.UserProfile
 import com.dd2d.json_placeholder.user.presentation.detail.component.UserTodoListComponent
 import com.dd2d.json_placeholder.user.presentation.detail.model.TodoListUIState
@@ -32,11 +33,13 @@ import com.dd2d.json_placeholder.user.presentation.detail.model.UserDetailScreen
 @Composable
 fun UserDetailScreen(
   onBack: () -> Unit,
+  onPostClick: (id: Int) -> Unit,
   modifier: Modifier = Modifier,
   viewModel: UserDetailViewModel = hiltViewModel()
 ) {
   val userDetailState by viewModel.userDetailState.collectAsStateWithLifecycle()
   val todoListUIState by viewModel.todoListUIState.collectAsStateWithLifecycle()
+  val postListState by viewModel.postListState.collectAsStateWithLifecycle()
 
   Scaffold(
     topBar = { TopBar(title = "User 상세", onBack = onBack) },
@@ -53,6 +56,9 @@ fun UserDetailScreen(
       UserDetailContent(
         userDetail = userDetail,
         todoListUIState = todoListUIState,
+        onTodoListCompleteFilterChange = viewModel::changeTodoListCompleteFilter,
+        postListState = postListState,
+        onPostClick = onPostClick,
         contentPadding = PaddingValues(horizontal = 16.dp, vertical = 20.dp),
         modifier = Modifier
           .fillMaxSize()
@@ -65,10 +71,13 @@ fun UserDetailScreen(
 private fun UserDetailContent(
   userDetail: User,
   todoListUIState: Stateful<TodoListUIState>,
+  onTodoListCompleteFilterChange: (Boolean?) -> Unit,
+  postListState: Stateful<List<Post>>,
+  onPostClick: (id: Int) -> Unit,
   modifier: Modifier = Modifier,
   contentPadding: PaddingValues = PaddingValues()
 ) {
-  var selectedTab by remember { mutableStateOf(UserDetailScreenTab.Todos) }
+  var selectedTab by rememberSaveable { mutableStateOf(UserDetailScreenTab.Todos) }
 
   Column(
     verticalArrangement = Arrangement.spacedBy(16.dp),
@@ -93,6 +102,21 @@ private fun UserDetailContent(
           ) { todoListUIState ->
             UserTodoListComponent(
               todoListUIState = todoListUIState,
+              onFilterChange = onTodoListCompleteFilterChange,
+              modifier = Modifier.fillMaxSize(),
+            )
+          }
+        }
+
+        UserDetailScreenTab.Posts -> {
+          StatefulContent(
+            state = postListState,
+            errorMessage = { "Post 목록을 조회하지 못했습니다." },
+            modifier = Modifier.fillMaxSize()
+          ) { postList ->
+            UserPostListComponent(
+              postList = postList,
+              onPostClick = onPostClick,
               modifier = Modifier.fillMaxSize(),
             )
           }
