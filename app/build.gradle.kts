@@ -6,6 +6,7 @@ plugins {
   alias(libs.plugins.kotlin.compose)
   alias(libs.plugins.kotlin.ksp)
   alias(libs.plugins.android.hilt)
+  alias(libs.plugins.kotlin.serialization)
 }
 
 android {
@@ -63,7 +64,10 @@ dependencies {
   debugImplementation(libs.androidx.compose.ui.tooling)
   debugImplementation(libs.androidx.compose.ui.test.manifest)
 
+  implementation(libs.kotlinx.serialization.json)
+
   implementation(libs.hilt.android)
+  implementation(libs.hilt.navigation.compose)
   ksp(libs.hilt.compiler)
 
   implementation(libs.coil)

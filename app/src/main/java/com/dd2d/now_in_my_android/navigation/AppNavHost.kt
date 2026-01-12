@@ -5,8 +5,8 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
-import com.dd2d.json_placeholder.post.presentation.list.PostListScreenRoute
-import com.dd2d.now_in_my_android.navigation.module.jsonPlaceholder
+import com.dd2d.now_in_my_android.navigation.module.json_placeholder.JsonPlaceholder
+import com.dd2d.now_in_my_android.navigation.module.json_placeholder.jsonPlaceholder
 
 @Composable
 fun AppNavHost(
@@ -15,7 +15,7 @@ fun AppNavHost(
 ) {
   NavHost(
     navController = navController,
-    startDestination = PostListScreenRoute,
+    startDestination = JsonPlaceholder,
     modifier = modifier
   ) {
     jsonPlaceholder(navController)
