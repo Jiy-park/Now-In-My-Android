@@ -13,6 +13,8 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
+import com.dd2d.json_placeholder.album.presentation.list.AlbumListScreenRoute
+import com.dd2d.json_placeholder.album.presentation.list.routeAlbumListScreen
 import com.dd2d.json_placeholder.post.presentation.list.PostListScreenRoute
 import com.dd2d.json_placeholder.post.presentation.list.routePostListScreen
 import com.dd2d.now_in_my_android.navigation.module.json_placeholder.main.component.BottomNavBar
@@ -31,15 +33,14 @@ fun MainScreen(
   LaunchedEffect(selectedItem) {
     val nextRoute = when(selectedItem) {
       MainScreenBottomNavItem.Post -> PostListScreenRoute
-      MainScreenBottomNavItem.Album -> null
+      MainScreenBottomNavItem.Album -> AlbumListScreenRoute
     }
-    if(nextRoute != null) {
-      navController.navigate(nextRoute) {
-        launchSingleTop = true
-        restoreState = true
-        popUpTo(navController.graph.id) {
-          saveState = true
-        }
+
+    navController.navigate(nextRoute) {
+      launchSingleTop = true
+      restoreState = true
+      popUpTo(navController.graph.id) {
+        saveState = true
       }
     }
   }
@@ -64,6 +65,9 @@ fun MainScreen(
     ) {
       routePostListScreen(
         onPostClick = { onNavEvent(MainScreenNavEvent.PostDetail(it)) }
+      )
+      routeAlbumListScreen(
+        onAlbumClick = { onNavEvent(MainScreenNavEvent.AlbumDetail(it)) }
       )
     }
   }

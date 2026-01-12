@@ -35,9 +35,9 @@ internal fun AlbumPhotoListComponent(
           AsyncImage(
             model = ImageRequest.Builder(context)
               .data(item.thumbnailUrl)
-              .size(200)
+              .size(100)
               .memoryCachePolicy(CachePolicy.ENABLED)
-              .memoryCacheKey("${item.url}?size=200")
+              .memoryCacheKey("${item.url}?size=100")
               .diskCachePolicy(CachePolicy.DISABLED)
               .build(),
             contentDescription = null,

@@ -67,7 +67,7 @@ internal class AlbumRepositoryImpl @Inject constructor(
             id = dto.id,
             title = dto.title,
             url = dto.url,
-            thumbnailUrl = dto.thumbnailUrl,
+            thumbnailUrl = "https://picsum.photos/id/${dto.id%500}/200/200",
           )
         }
       }

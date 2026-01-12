@@ -23,6 +23,7 @@ fun NavGraphBuilder.jsonPlaceholder(navController: NavHostController) {
       onNavEvent = { event ->
         when(event) {
           is MainScreenNavEvent.PostDetail -> navController.navigate(PostDetailScreenRoute(event.postId))
+          is MainScreenNavEvent.AlbumDetail -> navController.navigate(AlbumDetailScreenRoute(event.albumId))
         }
       }
     )

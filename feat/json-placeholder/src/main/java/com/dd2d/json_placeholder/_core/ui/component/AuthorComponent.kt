@@ -22,11 +22,11 @@ import coil3.compose.AsyncImage
 import coil3.request.CachePolicy
 import coil3.request.ImageRequest
 import com.dd2d.json_placeholder.R
-import com.dd2d.json_placeholder.post.domain.model.PostAuthor
 
 @Composable
-internal fun PostAuthorComponent(
-  author: PostAuthor,
+internal fun AuthorComponent(
+  authorNickname: String,
+  authorProfileImageUrl: String?,
   modifier: Modifier = Modifier,
 ) {
   Row(
@@ -38,12 +38,12 @@ internal fun PostAuthorComponent(
   ) {
     AsyncImage(
       model = ImageRequest.Builder(LocalContext.current)
-        .data(author.profileImageUrl?: R.drawable.default_profile)
+        .data(authorProfileImageUrl?: R.drawable.default_profile)
         .size(150)
         .memoryCachePolicy(CachePolicy.ENABLED)
         .apply {
-          if(author.profileImageUrl != null) {
-            memoryCacheKey("${author.profileImageUrl}&size=20")
+          if(authorProfileImageUrl != null) {
+            memoryCacheKey("${authorProfileImageUrl}&size=20")
           }
         }
         .diskCachePolicy(CachePolicy.DISABLED)
@@ -55,7 +55,7 @@ internal fun PostAuthorComponent(
         .size(20.dp)
     )
     Text(
-      text = author.nickname,
+      text = authorNickname,
       fontWeight = FontWeight.W400,
       color = MaterialTheme.colorScheme.onSurface,
       fontSize = 14.sp,
