@@ -1,4 +1,4 @@
-package com.dd2d.json_placeholder.post.presentation.detail.component
+package com.dd2d.json_placeholder._core.ui.component
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -29,11 +29,11 @@ import coil3.compose.AsyncImage
 import coil3.request.CachePolicy
 import coil3.request.ImageRequest
 import com.dd2d.json_placeholder.R
-import com.dd2d.json_placeholder.post.domain.model.PostAuthor
 
 @Composable
-internal fun ClickablePostAuthorComponent(
-  author: PostAuthor,
+internal fun ClickableAuthorComponent(
+  authorNickname: String,
+  profileImageUrl: String?,
   onClick: () -> Unit,
   modifier: Modifier = Modifier,
   contentPadding: PaddingValues = PaddingValues()
@@ -43,7 +43,7 @@ internal fun ClickablePostAuthorComponent(
     horizontalArrangement = Arrangement.spacedBy(8.dp),
     modifier = modifier
       .semantics {
-        contentDescription = "${author.nickname} 상세보기"
+        contentDescription = "$authorNickname 상세보기"
         role = Role.Button
       }
       .widthIn(max = 150.dp)
@@ -53,7 +53,7 @@ internal fun ClickablePostAuthorComponent(
   ) {
     AsyncImage(
       model = ImageRequest.Builder(LocalContext.current)
-        .data(author.profileImageUrl?: R.drawable.default_profile)
+        .data(profileImageUrl?: R.drawable.default_profile)
         .size(150)
         .memoryCachePolicy(CachePolicy.DISABLED)
         .diskCachePolicy(CachePolicy.DISABLED)
@@ -65,7 +65,7 @@ internal fun ClickablePostAuthorComponent(
         .size(24.dp)
     )
     Text(
-      text = author.nickname,
+      text = authorNickname,
       fontWeight = FontWeight.W400,
       color = MaterialTheme.colorScheme.onSurface,
       fontSize = 14.sp,

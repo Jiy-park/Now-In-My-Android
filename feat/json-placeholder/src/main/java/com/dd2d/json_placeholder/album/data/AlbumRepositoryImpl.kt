@@ -14,7 +14,7 @@ internal class AlbumRepositoryImpl @Inject constructor(
   private val albumApi: AlbumApi,
 ): AlbumRepository {
   override suspend fun getAlbumList(authorId: Int?): List<Album> {
-    val response = albumApi.getAlbumList(userId = authorId)
+    val response = albumApi.getAlbums(userId = authorId)
     if(!response.isSuccessful) {
       throw HttpException(response)
     }
@@ -31,6 +31,26 @@ internal class AlbumRepositoryImpl @Inject constructor(
             )
           )
         }
+      }
+      ?: throw IllegalStateException("Response body is null")
+  }
+
+  override suspend fun getAlbum(albumId: Int): Album {
+    val response = albumApi.getAlbum(albumId)
+    if(!response.isSuccessful) {
+      throw HttpException(response)
+    }
+    return response.body()
+      ?.let { dto ->
+        Album(
+          id = dto.id,
+          title = dto.title,
+          author = AlbumAuthor(
+            id = dto.userId,
+            nickname = getUserNameById(dto.userId),
+            profileImageUrl = getUserProfileImageById(dto.userId),
+          )
+        )
       }
       ?: throw IllegalStateException("Response body is null")
   }
