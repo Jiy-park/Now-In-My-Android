@@ -21,3 +21,6 @@ dependencyResolutionManagement {
 
 rootProject.name = "NowInMyAndroid"
 include(":app")
+include(":core:core")
+include(":core:network")
+include(":feat:json-placeholder")
