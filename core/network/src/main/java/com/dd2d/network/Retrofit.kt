@@ -27,4 +27,26 @@ internal object Retrofit {
       .addConverterFactory(NetworkDefault.json.asConverterFactory("application/json".toMediaType()))
       .build()
   }
+
+  @Provides
+  @Singleton
+  @Named("GooglePlace")
+  fun provideGooglePlaceRetrofit(): Retrofit {
+    val client = OkHttpClient.Builder()
+      .addInterceptor { chain ->
+        val request = chain.request()
+        val newRequest = request.newBuilder()
+          .header("X-Goog-Api-Key", BuildConfig.GOOGLE_PLACE_API_KEY)
+          .build()
+
+        chain.proceed(newRequest)
+      }
+      .build()
+
+    return Retrofit.Builder()
+      .baseUrl(BuildConfig.GOOGLE_PLACE_BASE_URL)
+      .client(client)
+      .addConverterFactory(NetworkDefault.json.asConverterFactory("application/json".toMediaType()))
+      .build()
+  }
 }

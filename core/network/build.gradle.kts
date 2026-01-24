@@ -1,3 +1,4 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
@@ -7,6 +8,8 @@ plugins {
   alias(libs.plugins.kotlin.ksp)
   alias(libs.plugins.android.hilt)
 }
+
+val properties = gradleLocalProperties(rootDir, providers)
 
 android {
   namespace = "com.dd2d.network"
@@ -21,6 +24,9 @@ android {
     consumerProguardFiles("consumer-rules.pro")
 
     buildConfigField(type = "String", name = "BASE_URL", value = "\"https://jsonplaceholder.typicode.com/\"")
+
+    buildConfigField(type = "String", name = "GOOGLE_PLACE_BASE_URL", value = "\"https://places.googleapis.com/v1/\"")
+    buildConfigField(type = "String", name = "GOOGLE_PLACE_API_KEY", value = "\"${properties["GOOGLE_PLACE_API_KEY"]}\"")
   }
 
   buildTypes {
