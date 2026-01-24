@@ -4,6 +4,7 @@ plugins {
   alias(libs.plugins.kotlin.android)
   alias(libs.plugins.android.library)
   alias(libs.plugins.kotlin.compose)
+  alias(libs.plugins.google.maps)
   alias(libs.plugins.kotlin.serialization)
   alias(libs.plugins.kotlin.ksp)
   alias(libs.plugins.android.hilt)
@@ -35,6 +36,8 @@ android {
   kotlin {
     compilerOptions {
       jvmTarget = JvmTarget.JVM_11
+
+      optIn.add("com.google.maps.android.compose.MapsComposeExperimentalApi")
     }
   }
   buildFeatures {
@@ -66,5 +69,15 @@ dependencies {
   implementation(libs.hilt.android)
   implementation(libs.hilt.navigation.compose)
   ksp(libs.hilt.compiler)
+
+  implementation(libs.coil)
+  implementation(libs.coil.network.okhhpt)
+
+  implementation(libs.google.map.compose)
+  implementation(libs.google.map.compose.utils)
+  implementation(libs.google.map.compose.widgets)
+  implementation(libs.google.map.palces)
+
   implementation(project(":core:core"))
+  implementation(project(":core:network"))
 }

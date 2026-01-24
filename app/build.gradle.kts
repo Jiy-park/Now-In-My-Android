@@ -7,6 +7,7 @@ plugins {
   alias(libs.plugins.kotlin.ksp)
   alias(libs.plugins.android.hilt)
   alias(libs.plugins.kotlin.serialization)
+  alias(libs.plugins.google.maps)
 }
 
 android {
@@ -42,6 +43,7 @@ android {
   }
   buildFeatures {
     compose = true
+    buildConfig = true
   }
 }
 
@@ -73,5 +75,8 @@ dependencies {
   implementation(libs.coil)
   implementation(libs.coil.network.okhhpt)
 
+  implementation(libs.google.map.palces)
+
   implementation(project(":feat:json-placeholder"))
+  implementation(project(":feat:maps"))
 }

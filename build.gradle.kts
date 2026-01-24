@@ -11,6 +11,14 @@ plugins {
   alias(libs.plugins.android.hilt) apply false
 }
 
+buildscript {
+  dependencies {
+    // google map 전용 secret.properties 사용
+    classpath("com.google.android.libraries.mapsplatform.secrets-gradle-plugin:secrets-gradle-plugin:2.0.1")
+  }
+}
+
+
 allprojects {
   tasks.withType<KotlinCompile> {
     // 모든 코틀린 모듈에 적용

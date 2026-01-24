@@ -8,6 +8,7 @@ import coil3.disk.DiskCache
 import coil3.disk.directory
 import coil3.memory.MemoryCache
 import coil3.request.crossfade
+import com.google.android.libraries.places.api.Places
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
@@ -29,5 +30,15 @@ class App: Application(), SingletonImageLoader.Factory {
           .build()
       }
       .build()
+  }
+
+  override fun onCreate() {
+    super.onCreate()
+
+    initGoogleMapPlaces()
+  }
+
+  private fun initGoogleMapPlaces() {
+    Places.initializeWithNewPlacesApiEnabled(this, BuildConfig.MAPS_API_KEY)
   }
 }
