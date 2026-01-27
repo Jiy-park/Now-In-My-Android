@@ -1,10 +1,10 @@
-package com.dd2d.now_in_my_android.navigation.module.json_placeholder.main
+package com.dd2d.now_in_my_android.presentation.main
 
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import com.dd2d.now_in_my_android.navigation.module.json_placeholder.main.model.MainScreenBottomNavItem
-import com.dd2d.now_in_my_android.navigation.module.json_placeholder.main.model.MainScreenNavEvent
+import com.dd2d.now_in_my_android.presentation.main.model.MainScreenBottomNavItem
+import com.dd2d.now_in_my_android.presentation.main.model.MainScreenNavEvent
 import kotlinx.serialization.Serializable
 
 @Serializable

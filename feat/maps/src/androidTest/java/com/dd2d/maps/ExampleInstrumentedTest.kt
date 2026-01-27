@@ -1,4 +1,4 @@
-package com.dd2d.now_in_my_android
+package com.dd2d.maps
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
@@ -17,6 +17,6 @@ class ExampleInstrumentedTest {
   fun useAppContext() {
     // Context of the app under test.
     val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-    assertEquals("com.dd2d.now_in_my_android", appContext.packageName)
+    assertEquals("com.dd2d.maps.test", appContext.packageName)
   }
 }

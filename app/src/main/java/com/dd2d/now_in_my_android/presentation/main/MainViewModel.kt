@@ -1,10 +1,10 @@
-package com.dd2d.now_in_my_android.navigation.module.json_placeholder.main
+package com.dd2d.now_in_my_android.presentation.main
 
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.navigation.toRoute
-import com.dd2d.now_in_my_android.navigation.module.json_placeholder.main.model.MainScreenBottomNavItem
+import com.dd2d.now_in_my_android.presentation.main.model.MainScreenBottomNavItem
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

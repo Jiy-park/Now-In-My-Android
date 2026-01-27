@@ -1,4 +1,4 @@
-package com.dd2d.now_in_my_android.navigation.module.json_placeholder.main.model
+package com.dd2d.now_in_my_android.presentation.main.model
 
 import com.dd2d.now_in_my_android.R
 
@@ -17,4 +17,9 @@ enum class MainScreenBottomNavItem(
     iconRes = R.drawable.album_outline,
     selectedIconRes = R.drawable.album_fill,
   ),
+  Maps(
+    label = "구글맵",
+    iconRes = R.drawable.map_outline,
+    selectedIconRes = R.drawable.map_fill,
+  )
 }

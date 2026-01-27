@@ -4,6 +4,7 @@ kotlin = "2.2.21"
 hilt = "2.57.2"
 retrofit = "3.0.0"
 coil = "3.3.0"
+google-map-compose = "7.0.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version = "1.17.0" }
@@ -40,6 +41,12 @@ kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serializa
 coil = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coil" }
 coil-network-okhhpt = { module = "io.coil-kt.coil3:coil-network-okhttp", version.ref = "coil" }
 
+# google-map
+google-map-compose = { group = "com.google.maps.android", name = "maps-compose", version.ref = "google-map-compose" }
+google-map-compose-utils = { group = "com.google.maps.android", name = "maps-compose-utils", version.ref = "google-map-compose" }
+google-map-compose-widgets = { group = "com.google.maps.android", name = "maps-compose-widgets", version.ref = "google-map-compose" }
+google-map-palces = { group = "com.google.maps.android", name = "places-ktx", version = "3.6.0" }
+
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 android-library = { id = "com.android.library", version.ref = "agp" }
@@ -48,3 +55,4 @@ kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 kotlin-ksp = { id = "com.google.devtools.ksp", version = "2.3.4" }
+google-maps = { id = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin" }

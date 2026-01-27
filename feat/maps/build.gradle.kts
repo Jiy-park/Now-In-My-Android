@@ -1,29 +1,26 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
-  alias(libs.plugins.android.application)
   alias(libs.plugins.kotlin.android)
+  alias(libs.plugins.android.library)
   alias(libs.plugins.kotlin.compose)
+  alias(libs.plugins.google.maps)
+  alias(libs.plugins.kotlin.serialization)
   alias(libs.plugins.kotlin.ksp)
   alias(libs.plugins.android.hilt)
-  alias(libs.plugins.kotlin.serialization)
-  alias(libs.plugins.google.maps)
 }
 
 android {
-  namespace = "com.dd2d.now_in_my_android"
+  namespace = "com.dd2d.maps"
   compileSdk {
     version = release(36)
   }
 
   defaultConfig {
-    applicationId = "com.dd2d.now_in_my_android"
     minSdk = 26
-    targetSdk = 36
-    versionCode = 1
-    versionName = "1.0"
 
     testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    consumerProguardFiles("consumer-rules.pro")
   }
 
   buildTypes {
@@ -39,11 +36,12 @@ android {
   kotlin {
     compilerOptions {
       jvmTarget = JvmTarget.JVM_11
+
+      optIn.add("com.google.maps.android.compose.MapsComposeExperimentalApi")
     }
   }
   buildFeatures {
     compose = true
-    buildConfig = true
   }
 }
 
@@ -56,8 +54,6 @@ dependencies {
   implementation(libs.androidx.compose.ui.graphics)
   implementation(libs.androidx.compose.ui.tooling.preview)
   implementation(libs.androidx.compose.material3)
-  implementation(libs.androidx.compose.navigation)
-
   testImplementation(libs.junit)
   androidTestImplementation(libs.androidx.junit)
   androidTestImplementation(libs.androidx.espresso.core)
@@ -66,6 +62,8 @@ dependencies {
   debugImplementation(libs.androidx.compose.ui.tooling)
   debugImplementation(libs.androidx.compose.ui.test.manifest)
 
+  implementation(libs.retrofit)
+  implementation(libs.converter.kotlinx.serialization)
   implementation(libs.kotlinx.serialization.json)
 
   implementation(libs.hilt.android)
@@ -75,8 +73,11 @@ dependencies {
   implementation(libs.coil)
   implementation(libs.coil.network.okhhpt)
 
+  implementation(libs.google.map.compose)
+  implementation(libs.google.map.compose.utils)
+  implementation(libs.google.map.compose.widgets)
   implementation(libs.google.map.palces)
 
-  implementation(project(":feat:json-placeholder"))
-  implementation(project(":feat:maps"))
+  implementation(project(":core:core"))
+  implementation(project(":core:network"))
 }

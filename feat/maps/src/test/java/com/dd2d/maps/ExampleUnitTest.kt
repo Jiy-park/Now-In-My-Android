@@ -1,4 +1,4 @@
-package com.dd2d.now_in_my_android
+package com.dd2d.maps
 
 import org.junit.Assert.assertEquals
 import org.junit.Test

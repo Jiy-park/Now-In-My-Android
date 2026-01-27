@@ -1,4 +1,4 @@
-package com.dd2d.now_in_my_android.navigation.module.json_placeholder.main
+package com.dd2d.now_in_my_android.presentation.main
 
 import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
@@ -17,9 +17,11 @@ import com.dd2d.json_placeholder.album.presentation.list.AlbumListScreenRoute
 import com.dd2d.json_placeholder.album.presentation.list.routeAlbumListScreen
 import com.dd2d.json_placeholder.post.presentation.list.PostListScreenRoute
 import com.dd2d.json_placeholder.post.presentation.list.routePostListScreen
-import com.dd2d.now_in_my_android.navigation.module.json_placeholder.main.component.BottomNavBar
-import com.dd2d.now_in_my_android.navigation.module.json_placeholder.main.model.MainScreenBottomNavItem
-import com.dd2d.now_in_my_android.navigation.module.json_placeholder.main.model.MainScreenNavEvent
+import com.dd2d.maps.google_map.presentation.GoogleMapScreenRoute
+import com.dd2d.maps.google_map.presentation.routeGoogleMapScreen
+import com.dd2d.now_in_my_android.presentation.main.component.BottomNavBar
+import com.dd2d.now_in_my_android.presentation.main.model.MainScreenBottomNavItem
+import com.dd2d.now_in_my_android.presentation.main.model.MainScreenNavEvent
 
 @Composable
 fun MainScreen(
@@ -34,6 +36,7 @@ fun MainScreen(
     val nextRoute = when(selectedItem) {
       MainScreenBottomNavItem.Post -> PostListScreenRoute
       MainScreenBottomNavItem.Album -> AlbumListScreenRoute
+      MainScreenBottomNavItem.Maps -> GoogleMapScreenRoute
     }
 
     navController.navigate(nextRoute) {
@@ -69,6 +72,7 @@ fun MainScreen(
       routeAlbumListScreen(
         onAlbumClick = { onNavEvent(MainScreenNavEvent.AlbumDetail(it)) }
       )
+      routeGoogleMapScreen()
     }
   }
 }
