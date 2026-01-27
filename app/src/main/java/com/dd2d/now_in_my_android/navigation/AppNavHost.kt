@@ -5,8 +5,12 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
-import com.dd2d.now_in_my_android.navigation.module.json_placeholder.JsonPlaceholder
-import com.dd2d.now_in_my_android.navigation.module.json_placeholder.jsonPlaceholder
+import com.dd2d.json_placeholder.album.presentation.detail.AlbumDetailScreenRoute
+import com.dd2d.json_placeholder.post.presentation.detail.PostDetailScreenRoute
+import com.dd2d.now_in_my_android.navigation.module.jsonPlaceholder
+import com.dd2d.now_in_my_android.presentation.main.MainScreenRoute
+import com.dd2d.now_in_my_android.presentation.main.model.MainScreenNavEvent
+import com.dd2d.now_in_my_android.presentation.main.routeMainScreen
 
 @Composable
 fun AppNavHost(
@@ -15,9 +19,17 @@ fun AppNavHost(
 ) {
   NavHost(
     navController = navController,
-    startDestination = JsonPlaceholder,
+    startDestination = MainScreenRoute(),
     modifier = modifier
   ) {
+    routeMainScreen(
+      onNavEvent = { event ->
+        when(event) {
+          is MainScreenNavEvent.PostDetail -> navController.navigate(PostDetailScreenRoute(event.postId))
+          is MainScreenNavEvent.AlbumDetail -> navController.navigate(AlbumDetailScreenRoute(event.albumId))
+        }
+      }
+    )
     jsonPlaceholder(navController)
   }
 }

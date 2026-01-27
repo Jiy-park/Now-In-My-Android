@@ -1,4 +1,4 @@
-package com.dd2d.now_in_my_android.navigation.module.json_placeholder.main.component
+package com.dd2d.now_in_my_android.presentation.main.component
 
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -12,7 +12,7 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
-import com.dd2d.now_in_my_android.navigation.module.json_placeholder.main.model.MainScreenBottomNavItem
+import com.dd2d.now_in_my_android.presentation.main.model.MainScreenBottomNavItem
 
 @Composable
 fun BottomNavBar(

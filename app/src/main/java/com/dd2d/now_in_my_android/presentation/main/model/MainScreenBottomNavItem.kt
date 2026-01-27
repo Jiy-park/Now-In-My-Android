@@ -1,4 +1,4 @@
-package com.dd2d.now_in_my_android.navigation.module.json_placeholder.main.model
+package com.dd2d.now_in_my_android.presentation.main.model
 
 import com.dd2d.now_in_my_android.R
 
