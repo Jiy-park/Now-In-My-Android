@@ -8,6 +8,7 @@ import androidx.navigation.compose.rememberNavController
 import com.dd2d.json_placeholder.album.presentation.detail.AlbumDetailScreenRoute
 import com.dd2d.json_placeholder.post.presentation.detail.PostDetailScreenRoute
 import com.dd2d.now_in_my_android.navigation.module.jsonPlaceholder
+import com.dd2d.now_in_my_android.navigation.module.maps
 import com.dd2d.now_in_my_android.presentation.main.MainScreenRoute
 import com.dd2d.now_in_my_android.presentation.main.model.MainScreenNavEvent
 import com.dd2d.now_in_my_android.presentation.main.routeMainScreen
@@ -31,5 +32,6 @@ fun AppNavHost(
       }
     )
     jsonPlaceholder(navController)
+    maps(navController)
   }
 }

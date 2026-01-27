@@ -17,4 +17,9 @@ enum class MainScreenBottomNavItem(
     iconRes = R.drawable.album_outline,
     selectedIconRes = R.drawable.album_fill,
   ),
+  Maps(
+    label = "구글맵",
+    iconRes = R.drawable.map_outline,
+    selectedIconRes = R.drawable.map_fill,
+  )
 }
