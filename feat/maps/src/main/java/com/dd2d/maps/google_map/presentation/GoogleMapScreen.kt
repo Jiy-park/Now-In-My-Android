@@ -27,7 +27,6 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun GoogleMapScreen(
-  onBack: () -> Unit,
   modifier: Modifier = Modifier,
   viewModel: GoogleMapViewModel = hiltViewModel()
 ) {
@@ -48,7 +47,6 @@ fun GoogleMapScreen(
   Scaffold(
     topBar = {
       GoogleMapScreenTopBar(
-        onBack = onBack,
         containerColor = when(currentLocationState) {
           is Stateful.Loading -> MaterialTheme.colorScheme.surface
           is Stateful.Error -> MaterialTheme.colorScheme.surface
