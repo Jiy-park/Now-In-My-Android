@@ -2,10 +2,16 @@ package com.dd2d.maps.google_map.data
 
 import com.dd2d.maps.google_map.data._source.local.LocationSource
 import com.dd2d.maps.google_map.data._source.remote.GooglePlaceApi
+import com.dd2d.maps.google_map.data._source.remote.dto.request.GooglePlaceSearchByTextRequestDto
+import com.dd2d.maps.google_map.data._source.remote.dto.request.PlaceSearchLocationBias
+import com.dd2d.maps.google_map.data._source.remote.dto.request.PlaceSearchLocationBiasCircle
+import com.dd2d.maps.google_map.data._source.remote.dto.request.PlaceSearchLocationBiasCircleCenter
 import com.dd2d.maps.google_map.domain.PlaceRepository
 import com.dd2d.maps.google_map.domain.model.Place
 import com.dd2d.maps.google_map.domain.model.PlaceImage
 import com.dd2d.maps.google_map.domain.model.PlaceLocation
+import com.dd2d.maps.google_map.domain.model.PlaceSearchOption
+import com.dd2d.maps.google_map.domain.model.PlaceSearchResult
 import kotlinx.coroutines.CancellationException
 import javax.inject.Inject
 
@@ -50,5 +56,38 @@ internal class PlaceRepositoryImpl @Inject constructor(
         )
       }?: emptyList(),
     )
+  }
+
+  override suspend fun searchPlacesBy(option: PlaceSearchOption): List<PlaceSearchResult> {
+    val response =
+      try {
+        googlePlaceApi.searchByText(
+          body = GooglePlaceSearchByTextRequestDto(
+            textQuery = option.keyword,
+            languageCode = "ko",
+            regionCode = "KR",
+            locationBias = option.bias?.let {
+              PlaceSearchLocationBias(
+                circle = PlaceSearchLocationBiasCircle(
+                  center = PlaceSearchLocationBiasCircleCenter(
+                    latitude = option.bias.centerLat,
+                    longitude = option.bias.centerLng,
+                  ),
+                  radius = option.bias.radius,
+                )
+              )
+            },
+          )
+        )
+      }
+      catch (exception: CancellationException) { throw exception }
+
+    return response.places.map { dto ->
+      PlaceSearchResult(
+        id = dto.id,
+        name = dto.displayName.text,
+        address = dto.formattedAddress
+      )
+    }
   }
 }
