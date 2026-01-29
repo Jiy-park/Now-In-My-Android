@@ -13,7 +13,7 @@ import retrofit2.http.Query
 internal interface GooglePlaceApi {
   companion object {
     const val PLACE_FIELD_MASK = "id,displayName,location,formattedAddress,types,businessStatus,rating,userRatingCount,priceLevel,regularOpeningHours,currentOpeningHours,internationalPhoneNumber,websiteUri,googleMapsUri,photos"
-    const val SEARCH_BY_TEXT_FIELD_MASK = "places.id,places.displayName,places.formattedAddress,nextPageToken"
+    const val SEARCH_BY_TEXT_FIELD_MASK = "places.id,places.displayName,places.formattedAddress"
   }
 
   @GET("v1/places/{placeId}")
