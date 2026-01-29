@@ -8,6 +8,7 @@ import retrofit2.http.Query
 
 internal interface GooglePlaceApi {
   @GET("places/{placeId}")
+  @GET("v1/places/{placeId}")
   suspend fun getPlace(
     @Path("placeId") placeId: String,
     @Query("languageCode") languageCode: String = "ko-KR",
