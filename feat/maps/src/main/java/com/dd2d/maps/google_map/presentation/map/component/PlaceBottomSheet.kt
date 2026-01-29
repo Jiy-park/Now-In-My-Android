@@ -1,4 +1,4 @@
-package com.dd2d.maps.google_map.presentation.component
+package com.dd2d.maps.google_map.presentation.map.component
 
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement

@@ -17,8 +17,8 @@ import com.dd2d.json_placeholder.album.presentation.list.AlbumListScreenRoute
 import com.dd2d.json_placeholder.album.presentation.list.routeAlbumListScreen
 import com.dd2d.json_placeholder.post.presentation.list.PostListScreenRoute
 import com.dd2d.json_placeholder.post.presentation.list.routePostListScreen
-import com.dd2d.maps.google_map.presentation.GoogleMapScreenRoute
-import com.dd2d.maps.google_map.presentation.routeGoogleMapScreen
+import com.dd2d.maps.google_map.presentation.map.GoogleMapScreenRoute
+import com.dd2d.maps.google_map.presentation.map.routeGoogleMapScreen
 import com.dd2d.now_in_my_android.presentation.main.component.BottomNavBar
 import com.dd2d.now_in_my_android.presentation.main.model.MainScreenBottomNavItem
 import com.dd2d.now_in_my_android.presentation.main.model.MainScreenNavEvent

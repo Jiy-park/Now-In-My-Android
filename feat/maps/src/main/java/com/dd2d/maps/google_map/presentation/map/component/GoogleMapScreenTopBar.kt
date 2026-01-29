@@ -1,4 +1,4 @@
-package com.dd2d.maps.google_map.presentation.component
+package com.dd2d.maps.google_map.presentation.map.component
 
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults

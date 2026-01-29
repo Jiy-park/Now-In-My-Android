@@ -1,4 +1,4 @@
-package com.dd2d.maps.google_map.presentation
+package com.dd2d.maps.google_map.presentation.map
 
 import androidx.compose.runtime.snapshotFlow
 import androidx.lifecycle.ViewModel
@@ -7,7 +7,7 @@ import com.dd2d.core.flow.stateInWhileSubscribed
 import com.dd2d.core.stateful.Stateful
 import com.dd2d.core.stateful.statefulFlow
 import com.dd2d.maps.google_map.domain.PlaceRepository
-import com.dd2d.maps.google_map.presentation.model.GoogleMapUIState
+import com.dd2d.maps.google_map.presentation.map.model.GoogleMapUIState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.filterNotNull

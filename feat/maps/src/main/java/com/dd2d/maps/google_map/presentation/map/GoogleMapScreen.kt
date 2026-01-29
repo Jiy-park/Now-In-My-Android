@@ -1,4 +1,4 @@
-package com.dd2d.maps.google_map.presentation
+package com.dd2d.maps.google_map.presentation.map
 
 import android.Manifest
 import android.content.pm.PackageManager
@@ -18,11 +18,11 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.dd2d.core.stateful.Stateful
-import com.dd2d.maps.google_map.presentation.component.GoogleMapScreenTopBar
-import com.dd2d.maps.google_map.presentation.component.PlaceBottomSheet
-import com.dd2d.maps.google_map.presentation.content.ErrorContent
-import com.dd2d.maps.google_map.presentation.content.GoogleMapContent
-import com.dd2d.maps.google_map.presentation.content.LoadingContent
+import com.dd2d.maps.google_map.presentation.map.component.GoogleMapScreenTopBar
+import com.dd2d.maps.google_map.presentation.map.component.PlaceBottomSheet
+import com.dd2d.maps.google_map.presentation.map.content.ErrorContent
+import com.dd2d.maps.google_map.presentation.map.content.GoogleMapContent
+import com.dd2d.maps.google_map.presentation.map.content.LoadingContent
 import kotlinx.coroutines.launch
 
 @Composable
@@ -42,7 +42,6 @@ fun GoogleMapScreen(
     viewModel.googleMapUIState.isLocationPermissionGranted =
       context.checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
   }
-
 
   Scaffold(
     topBar = {

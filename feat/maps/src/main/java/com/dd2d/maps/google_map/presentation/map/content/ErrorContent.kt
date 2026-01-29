@@ -1,5 +1,6 @@
-package com.dd2d.maps.google_map.presentation.content
+package com.dd2d.maps.google_map.presentation.map.content
 
+import android.Manifest
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Box
@@ -33,7 +34,7 @@ internal fun ErrorContent(
         }
       )
       TextButton(
-        onClick = { locationPermissionLauncher.launch(android.Manifest.permission.ACCESS_FINE_LOCATION) }
+        onClick = { locationPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION) }
       ) {
         Text(
           text = "위치 권한을 허용해 주세요.",

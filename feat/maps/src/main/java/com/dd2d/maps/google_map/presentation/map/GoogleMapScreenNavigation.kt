@@ -1,4 +1,4 @@
-package com.dd2d.maps.google_map.presentation
+package com.dd2d.maps.google_map.presentation.map
 
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavGraphBuilder
