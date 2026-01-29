@@ -26,7 +26,6 @@ internal interface GooglePlaceApi {
   @POST("v1/places:searchText")
   suspend fun searchByText(
     @Body body: GooglePlaceSearchByTextRequestDto,
-    @Query("languageCode") languageCode: String = "ko",
     @Header("X-Goog-FieldMask") fieldMask: String = SEARCH_BY_TEXT_FIELD_MASK,
   ): GooglePlaceSearchPlaceListItemResponseDto
 }

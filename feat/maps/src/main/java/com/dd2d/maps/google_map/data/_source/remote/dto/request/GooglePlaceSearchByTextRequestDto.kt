@@ -6,6 +6,8 @@ import kotlinx.serialization.Serializable
 internal data class GooglePlaceSearchByTextRequestDto(
   val textQuery: String,
   val locationBias: PlaceSearchLocationBias?,
+  val languageCode: String,
+  val regionCode: String,
 )
 
 @Serializable
