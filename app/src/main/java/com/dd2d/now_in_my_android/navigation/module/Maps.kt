@@ -5,5 +5,7 @@ import androidx.navigation.NavHostController
 import com.dd2d.maps.google_map.presentation.map.routeGoogleMapScreen
 
 fun NavGraphBuilder.maps(navController: NavHostController) {
-  routeGoogleMapScreen()
+  routeGoogleMapScreen(
+    onPlaceSearchClick = {}
+  )
 }

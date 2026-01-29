@@ -4,8 +4,8 @@ import android.Manifest
 import android.content.pm.PackageManager
 import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
@@ -13,8 +13,8 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.dd2d.core.stateful.Stateful
@@ -27,6 +27,7 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun GoogleMapScreen(
+  onPlaceSearchClick: () -> Unit,
   modifier: Modifier = Modifier,
   viewModel: GoogleMapViewModel = hiltViewModel()
 ) {
@@ -46,11 +47,10 @@ fun GoogleMapScreen(
   Scaffold(
     topBar = {
       GoogleMapScreenTopBar(
-        containerColor = when(currentLocationState) {
-          is Stateful.Loading -> MaterialTheme.colorScheme.surface
-          is Stateful.Error -> MaterialTheme.colorScheme.surface
-          is Stateful.Success -> Color.Transparent
-        }
+        onClick = onPlaceSearchClick,
+        modifier = Modifier
+          .padding(horizontal = 16.dp, vertical = 24.dp)
+          .fillMaxWidth()
       )
     },
     modifier = modifier
