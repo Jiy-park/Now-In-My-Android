@@ -72,7 +72,9 @@ fun MainScreen(
       routeAlbumListScreen(
         onAlbumClick = { onNavEvent(MainScreenNavEvent.AlbumDetail(it)) }
       )
-      routeGoogleMapScreen(onPlaceSearchClick = { /* TODO */ })
+      routeGoogleMapScreen(
+        onPlaceSearchClick = { onNavEvent(MainScreenNavEvent.PlaceSearch) }
+      )
     }
   }
 }
