@@ -8,7 +8,7 @@ package com.dd2d.maps.google_map.domain.model
  */
 data class PlaceSearchOption(
   val keyword: String,
-  val bias: PlaceSearchBias?,
+  val bias: PlaceSearchBias? = null,
 )
 
 /**
