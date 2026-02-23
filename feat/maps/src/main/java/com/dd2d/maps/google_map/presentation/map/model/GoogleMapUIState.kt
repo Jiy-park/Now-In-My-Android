@@ -1,4 +1,4 @@
-package com.dd2d.maps.google_map.presentation.model
+package com.dd2d.maps.google_map.presentation.map.model
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf

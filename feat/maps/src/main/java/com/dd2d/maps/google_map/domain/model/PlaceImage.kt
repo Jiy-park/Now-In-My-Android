@@ -18,6 +18,7 @@ data class PlaceImage(
 ) {
   /** 주어진 [width]와 [height]의 이미지 `url`을 반환합니다. */
   fun url(width: Int, height: Int): String = BuildConfig.GOOGLE_PLACE_BASE_URL +
+      "v1/" +
       "$name/" +
       "media?" +
       "maxWidthPx=$width&" +

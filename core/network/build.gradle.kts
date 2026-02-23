@@ -25,7 +25,7 @@ android {
 
     buildConfigField(type = "String", name = "BASE_URL", value = "\"https://jsonplaceholder.typicode.com/\"")
 
-    buildConfigField(type = "String", name = "GOOGLE_PLACE_BASE_URL", value = "\"https://places.googleapis.com/v1/\"")
+    buildConfigField(type = "String", name = "GOOGLE_PLACE_BASE_URL", value = "\"https://places.googleapis.com/\"")
     buildConfigField(type = "String", name = "GOOGLE_PLACE_API_KEY", value = "\"${properties["GOOGLE_PLACE_API_KEY"]}\"")
   }
 

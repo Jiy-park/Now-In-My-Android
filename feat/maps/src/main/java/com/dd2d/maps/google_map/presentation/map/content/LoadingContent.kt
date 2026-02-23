@@ -1,4 +1,4 @@
-package com.dd2d.maps.google_map.presentation.content
+package com.dd2d.maps.google_map.presentation.map.content
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size
