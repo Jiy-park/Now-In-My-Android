@@ -7,7 +7,6 @@ import com.dd2d.todo.domain.model.Todo
 import com.dd2d.todo.domain.model.TodoCategory
 import com.dd2d.todo.domain.model.TodoCreateData
 import com.dd2d.todo.domain.model.TodoPriority
-import com.dd2d.todo.domain.model.TodoState
 import com.dd2d.todo.domain.model.TodoUpdateData
 import com.dd2d.todo.domain.repository.TodoRepository
 import java.time.ZonedDateTime
@@ -37,12 +36,12 @@ class TodoRepositoryImpl @Inject constructor(
         id = Uuid.random(),
         title = data.title,
         content = data.content,
-        state = TodoState.PENDING,
         priority = data.priority,
         categoryId = data.categoryId,
         deadline = data.deadline,
         createdAt = now,
         updatedAt = now,
+        completedAt = null,
         parentId = data.parentId
       )
     )
@@ -54,10 +53,10 @@ class TodoRepositoryImpl @Inject constructor(
       existing.copy(
         title = data.title ?: existing.title,
         content = data.content ?: existing.content,
-        state = data.state ?: existing.state,
         categoryId = data.categoryId ?: existing.categoryId,
         priority = data.priority ?: existing.priority,
         deadline = data.deadline ?: existing.deadline,
+        completedAt = data.completedAt ?: existing.completedAt,
         updatedAt = ZonedDateTime.now()
       )
     )
@@ -75,7 +74,6 @@ class TodoRepositoryImpl @Inject constructor(
   private suspend fun TodoWithCategory.toDomain(): Todo {
     return Todo(
       id = todo.id,
-      state = todo.state,
       category = TodoCategory(
         id = category.id,
         name = category.name,
@@ -87,6 +85,7 @@ class TodoRepositoryImpl @Inject constructor(
       deadline = todo.deadline,
       createdAt = todo.createdAt,
       updatedAt = todo.updatedAt,
+      completedAt = todo.completedAt,
       // 하위 Todo가 있는 경우 재귀적으로 가져옵니다.
       subTodos = todoDao.getSubTodos(todo.id).map { it.toDomain() }
     )

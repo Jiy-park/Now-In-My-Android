@@ -2,7 +2,6 @@ package com.dd2d.todo.data._source.local.room
 
 import androidx.room.TypeConverter
 import com.dd2d.todo.domain.model.TodoPriority
-import com.dd2d.todo.domain.model.TodoState
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 import kotlin.uuid.Uuid
@@ -24,12 +23,6 @@ class TodoTypeConverters {
 
   @TypeConverter
   fun toZonedDateTime(value: String?): ZonedDateTime? = value?.let { ZonedDateTime.parse(it, formatter) }
-
-  @TypeConverter
-  fun fromTodoState(value: TodoState?): String? = value?.name
-
-  @TypeConverter
-  fun toTodoState(value: String?): TodoState? = value?.let { TodoState.valueOf(it) }
 
   @TypeConverter
   fun fromTodoPriority(value: TodoPriority?): String? = value?.name

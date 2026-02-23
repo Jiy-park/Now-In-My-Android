@@ -9,7 +9,7 @@ import kotlin.uuid.Uuid
  *
  * @property title 변경할 제목
  * @property content 변경할 내용
- * @property state 변경할 진행 상태 ([TodoState])
+ * @property completedAt 변경할 완료 일시 (null이면 미완료 처리)
  * @property categoryId 변경할 카테고리 식별자
  * @property priority 변경할 우선순위 ([TodoPriority])
  * @property deadline 변경할 마감 기한
@@ -17,7 +17,7 @@ import kotlin.uuid.Uuid
 data class TodoUpdateData(
   val title: String? = null,
   val content: String? = null,
-  val state: TodoState? = null,
+  val completedAt: ZonedDateTime? = null,
   val categoryId: Uuid? = null,
   val priority: TodoPriority? = null,
   val deadline: ZonedDateTime? = null,
