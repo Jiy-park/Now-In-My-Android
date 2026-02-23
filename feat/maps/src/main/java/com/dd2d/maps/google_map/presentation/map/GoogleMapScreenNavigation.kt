@@ -9,11 +9,13 @@ import kotlinx.serialization.Serializable
 data object GoogleMapScreenRoute
 
 fun NavGraphBuilder.routeGoogleMapScreen(
+  onBack: () -> Unit,
   onPlaceSearchClick: () -> Unit,
   modifier: Modifier = Modifier,
 ) {
   composable<GoogleMapScreenRoute> {
     GoogleMapScreen(
+      onBack = onBack,
       onPlaceSearchClick = onPlaceSearchClick,
       modifier = modifier,
     )

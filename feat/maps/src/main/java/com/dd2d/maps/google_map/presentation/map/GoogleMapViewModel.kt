@@ -1,5 +1,7 @@
 package com.dd2d.maps.google_map.presentation.map
 
+import androidx.compose.foundation.text.input.TextFieldState
+import androidx.compose.foundation.text.input.clearText
 import androidx.compose.runtime.snapshotFlow
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -7,12 +9,16 @@ import com.dd2d.core.flow.stateInWhileSubscribed
 import com.dd2d.core.stateful.Stateful
 import com.dd2d.core.stateful.statefulFlow
 import com.dd2d.maps.google_map.domain.PlaceRepository
+import com.dd2d.maps.google_map.domain.model.PlaceSearchOption
 import com.dd2d.maps.google_map.presentation.map.model.GoogleMapUIState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.mapLatest
 import javax.inject.Inject
 
 @HiltViewModel
@@ -34,8 +40,26 @@ class GoogleMapViewModel @Inject constructor(
     .stateInWhileSubscribed(scope = viewModelScope, initialValue = Stateful.Loading)
 
 
+  val searchTextState = TextFieldState()
+
+  val searchResultState = snapshotFlow { searchTextState.text.toString() }
+    .map { it.trim() }
+    .debounce(200)
+    .mapLatest { text ->
+      if(text.isEmpty()) emptyList()
+      else {
+        runCatching { placeRepository.searchPlacesBy(option = PlaceSearchOption(keyword = text)) }
+          .getOrDefault(emptyList())
+      }
+    }
+    .stateInWhileSubscribed(scope = viewModelScope, initialValue = emptyList())
+
+
   private val placeId = MutableStateFlow<String?>(null)
-  fun fetchPlace(id: String) { placeId.value = id }
+  fun fetchPlace(id: String) {
+    searchTextState.clearText()
+    placeId.value = id
+  }
   fun clearPlaceState() { placeId.value = null }
   val placeState = placeId
     .flatMapLatest { id ->

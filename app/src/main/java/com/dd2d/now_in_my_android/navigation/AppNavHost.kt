@@ -7,7 +7,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.dd2d.json_placeholder.album.presentation.detail.AlbumDetailScreenRoute
 import com.dd2d.json_placeholder.post.presentation.detail.PostDetailScreenRoute
-import com.dd2d.maps.google_map.presentation.place_search.PlaceSearchScreenRoute
+import com.dd2d.maps.google_map.presentation.map.GoogleMapScreenRoute
 import com.dd2d.now_in_my_android.navigation.module.jsonPlaceholder
 import com.dd2d.now_in_my_android.navigation.module.maps
 import com.dd2d.now_in_my_android.presentation.main.MainScreenRoute
@@ -29,7 +29,7 @@ fun AppNavHost(
         when(event) {
           is MainScreenNavEvent.PostDetail -> navController.navigate(PostDetailScreenRoute(event.postId))
           is MainScreenNavEvent.AlbumDetail -> navController.navigate(AlbumDetailScreenRoute(event.albumId))
-          is MainScreenNavEvent.PlaceSearch -> navController.navigate(PlaceSearchScreenRoute)
+          is MainScreenNavEvent.Maps -> navController.navigate(GoogleMapScreenRoute)
         }
       }
     )

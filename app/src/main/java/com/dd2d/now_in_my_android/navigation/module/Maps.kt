@@ -8,6 +8,7 @@ import com.dd2d.maps.google_map.presentation.place_search.routePlaceSearchScreen
 
 fun NavGraphBuilder.maps(navController: NavHostController) {
   routeGoogleMapScreen(
+    onBack = navController::popBackStack,
     onPlaceSearchClick = {
       navController.navigate(PlaceSearchScreenRoute)
     }
