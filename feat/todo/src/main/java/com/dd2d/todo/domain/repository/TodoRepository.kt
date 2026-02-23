@@ -11,11 +11,11 @@ import kotlin.uuid.Uuid
  */
 interface TodoRepository {
   /**
-   * 필터 조건에 맞는 모든 Todo 목록을 조회합니다.
+   * 필터 조건에 맞는 최상위(Root) Todo 목록을 조회합니다.
    *
    * @param categoryId 특정 카테고리로 필터링할 경우 해당 ID
    * @param priority 특정 우선순위로 필터링할 경우 해당 값
-   * @return 필터링된 Todo 목록
+   * @return 필터링된 최상위 Todo 목록
    */
   suspend fun getTodos(
     categoryId: Uuid? = null,

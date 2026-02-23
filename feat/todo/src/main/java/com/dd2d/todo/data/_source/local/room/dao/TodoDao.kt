@@ -18,7 +18,7 @@ import kotlin.uuid.Uuid
 @Dao
 interface TodoDao {
   /**
-   * 필터 조건에 맞는 모든 Todo를 조회합니다. (카테고리 정보 포함)
+   * 필터 조건에 맞는 최상위(Root) Todo 목록을 조회합니다. (카테고리 정보 포함)
    * categoryId와 priority가 null인 경우 해당 필터는 무시됩니다.
    */
   @Transaction

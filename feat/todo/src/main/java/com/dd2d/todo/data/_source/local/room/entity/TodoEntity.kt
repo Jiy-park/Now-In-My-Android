@@ -6,6 +6,9 @@ import com.dd2d.todo.domain.model.TodoPriority
 import java.time.ZonedDateTime
 import kotlin.uuid.Uuid
 
+/**
+ * Todo 항목 정보를 저장하는 Room 엔티티 클래스입니다.
+ */
 @Entity(tableName = "todos")
 data class TodoEntity(
   @PrimaryKey val id: Uuid,
