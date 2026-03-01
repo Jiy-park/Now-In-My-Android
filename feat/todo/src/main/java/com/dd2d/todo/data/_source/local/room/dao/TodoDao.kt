@@ -8,6 +8,7 @@ import androidx.room.Query
 import androidx.room.Transaction
 import androidx.room.Update
 import com.dd2d.todo.data._source.local.room.entity.TodoEntity
+import com.dd2d.todo.data._source.local.room.relation.SubTodoWithChildren
 import com.dd2d.todo.data._source.local.room.relation.TodoWithCategory
 import com.dd2d.todo.domain.model.TodoPriority
 import kotlin.uuid.Uuid
@@ -17,6 +18,20 @@ import kotlin.uuid.Uuid
  */
 @Dao
 interface TodoDao {
+  /**
+   * 필터 조건에 맞는 최상위(Root) Todo 목록을 조회합니다. (카테고리 정보 포함)
+   * 각 Todo의 하위 항목 존재 여부를 함께 반환합니다.
+   */
+  @Transaction
+  @Query("""
+    SELECT *, (SELECT COUNT(*) FROM todos AS sub WHERE sub.parentId = t.id) > 0 AS has_sub_todos 
+    FROM todos AS t
+    WHERE (:categoryId IS NULL OR t.categoryId = :categoryId) 
+    AND (:priority IS NULL OR t.priority = :priority)
+    AND t.parentId IS NULL
+  """)
+  suspend fun getRootTodosWithChildrenFlag(categoryId: Uuid?, priority: TodoPriority?): List<SubTodoWithChildren>
+
   /**
    * 필터 조건에 맞는 최상위(Root) Todo 목록을 조회합니다. (카테고리 정보 포함)
    * categoryId와 priority가 null인 경우 해당 필터는 무시됩니다.
@@ -60,4 +75,17 @@ interface TodoDao {
   @Transaction
   @Query("SELECT * FROM todos WHERE parentId = :parentId")
   suspend fun getSubTodos(parentId: Uuid): List<TodoWithCategory>
+
+  /** 특정 부모 Todo에 속한 하위 Todo 목록을 조회하되, 각 항목의 하위 존재 여부를 포함합니다. */
+  @Transaction
+  @Query("""
+    SELECT *, (SELECT COUNT(*) FROM todos AS sub WHERE sub.parentId = t.id) > 0 AS has_sub_todos
+    FROM todos AS t
+    WHERE t.parentId = :parentId
+  """)
+  suspend fun getSubTodosWithChildrenFlag(parentId: Uuid): List<SubTodoWithChildren>
+
+  /** 특정 Todo의 직계 하위 Todo ID 목록을 조회합니다. */
+  @Query("SELECT id FROM todos WHERE parentId = :parentId")
+  suspend fun getDirectSubTodoIds(parentId: Uuid): List<Uuid>
 }

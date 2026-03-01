@@ -2,6 +2,7 @@ package com.dd2d.todo.data.repository
 
 import com.dd2d.todo.data._source.local.room.dao.TodoDao
 import com.dd2d.todo.data._source.local.room.entity.TodoEntity
+import com.dd2d.todo.data._source.local.room.relation.SubTodoWithChildren
 import com.dd2d.todo.data._source.local.room.relation.TodoWithCategory
 import com.dd2d.todo.domain.model.Todo
 import com.dd2d.todo.domain.model.TodoCategory
@@ -21,12 +22,17 @@ class TodoRepositoryImpl @Inject constructor(
 ) : TodoRepository {
 
   override suspend fun getTodos(categoryId: Uuid?, priority: TodoPriority?): Result<List<Todo>> = runCatching {
-    todoDao.getRootTodos(categoryId, priority).map { it.toDomain() }
+    // 목록 조회 시에는 1단계 자식 목록을 가져오지 않고, 존재 여부 플래그만 가져옵니다.
+    todoDao.getRootTodosWithChildrenFlag(categoryId, priority).map { it.toDomain() }
   }
 
   override suspend fun getTodo(id: Uuid): Result<Todo> = runCatching {
-    todoDao.getTodo(id)?.toDomain()
-      ?: throw NoSuchElementException("Todo with id $id not found")
+    val target = todoDao.getTodo(id) ?: throw NoSuchElementException("Todo with id $id not found")
+    
+    // 상세 조회 시에는 바로 아래 자식(1 Depth) 목록을 가져옵니다.
+    val subTodos = todoDao.getSubTodosWithChildrenFlag(id).map { it.toDomain() }
+    
+    target.toDomain(subTodos = subTodos)
   }
 
   override suspend fun createTodo(data: TodoCreateData): Result<Unit> = runCatching {
@@ -90,10 +96,40 @@ class TodoRepositoryImpl @Inject constructor(
   }
 
   override suspend fun getSubTodos(todoId: Uuid): Result<List<Todo>> = runCatching {
-    todoDao.getSubTodos(todoId).map { it.toDomain() }
+    // 특정 항목의 하위 목록을 요청할 때도 1 Depth와 그 다음 단계 존재 여부만 가져옵니다.
+    todoDao.getSubTodosWithChildrenFlag(todoId).map { it.toDomain() }
   }
 
-  private suspend fun TodoWithCategory.toDomain(): Todo {
+  override suspend fun getAllSubTodoIds(todoId: Uuid): Result<List<Uuid>> = runCatching {
+    val resultIds = mutableListOf<Uuid>()
+    val queue = ArrayDeque<Uuid>()
+
+    // BFS(너비 우선 탐색) 반복문으로 모든 하위 ID를 수집합니다. (재귀 없음)
+    // 타겟(todoId)의 직계 자식들부터 탐색을 시작합니다.
+    val initialSubIds = todoDao.getDirectSubTodoIds(todoId)
+    queue.addAll(initialSubIds)
+
+    while (queue.isNotEmpty()) {
+      val currentId = queue.removeFirst()
+      resultIds.add(currentId)
+
+      // 현재 항목의 자식들을 큐에 추가하여 탐색을 이어갑니다.
+      val subIds = todoDao.getDirectSubTodoIds(currentId)
+      queue.addAll(subIds)
+    }
+    resultIds
+  }
+
+  private fun SubTodoWithChildren.toDomain(): Todo {
+    return todoWithCategory.toDomain(
+      hasSubTodos = hasSubTodos
+    )
+  }
+
+  private fun TodoWithCategory.toDomain(
+    subTodos: List<Todo> = emptyList(),
+    hasSubTodos: Boolean = false
+  ): Todo {
     return Todo(
       id = todo.id,
       category = TodoCategory(
@@ -109,8 +145,8 @@ class TodoRepositoryImpl @Inject constructor(
       updatedAt = todo.updatedAt,
       completedAt = todo.completedAt,
       parentId = todo.parentId,
-      // 하위 Todo가 있는 경우 재귀적으로 가져옵니다.
-      subTodos = todoDao.getSubTodos(todo.id).map { it.toDomain() }
+      subTodos = subTodos,
+      hasSubTodos = hasSubTodos
     )
   }
 }

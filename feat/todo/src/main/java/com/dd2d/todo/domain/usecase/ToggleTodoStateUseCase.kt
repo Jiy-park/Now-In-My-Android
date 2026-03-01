@@ -25,7 +25,7 @@ class ToggleTodoStateUseCase @Inject constructor(
     todoRepository.updateTodo(todoId, TodoUpdateData(completedAt = targetCompletedAt)).getOrThrow()
 
     // 2. 하위 항목들 일괄 업데이트 (Cascading)
-    val subTodoIds = getAllSubTodoIds(targetTodo.subTodos)
+    val subTodoIds = todoRepository.getAllSubTodoIds(todoId).getOrThrow()
     if (subTodoIds.isNotEmpty()) {
       todoRepository.updateTodos(subTodoIds, TodoUpdateData(completedAt = targetCompletedAt)).getOrThrow()
     }
@@ -37,23 +37,6 @@ class ToggleTodoStateUseCase @Inject constructor(
 
     // 4. 업데이트된 최종 결과 반환
     todoRepository.getTodo(todoId).getOrThrow()
-  }
-
-  /**
-   * 하위의 모든 Todo ID를 반복적으로 수집합니다.
-   */
-  private fun getAllSubTodoIds(subTodos: List<Todo>): List<Uuid> {
-    val ids = mutableListOf<Uuid>()
-    val stack = subTodos.toMutableList()
-
-    while (stack.isNotEmpty()) {
-      val todo = stack.removeLastOrNull()?: break
-      ids.add(todo.id)
-      if (todo.subTodos.isNotEmpty()) {
-        stack.addAll(todo.subTodos)
-      }
-    }
-    return ids
   }
 
   /**

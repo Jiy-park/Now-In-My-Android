@@ -69,4 +69,12 @@ interface TodoRepository {
    * @return 하위 Todo 목록
    */
   suspend fun getSubTodos(todoId: Uuid): Result<List<Todo>>
+
+  /**
+   * 특정 Todo의 모든 하위(자손) Todo ID를 재귀적으로 조회합니다.
+   *
+   * @param todoId 루트 Todo의 식별자
+   * @return 모든 하위 Todo의 ID 목록
+   */
+  suspend fun getAllSubTodoIds(todoId: Uuid): Result<List<Uuid>>
 }
