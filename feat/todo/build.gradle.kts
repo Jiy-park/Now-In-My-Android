@@ -10,9 +10,7 @@ plugins {
 
 android {
   namespace = "com.dd2d.todo"
-  compileSdk {
-    version = release(36)
-  }
+  compileSdk = 36
 
   defaultConfig {
     minSdk = 26
