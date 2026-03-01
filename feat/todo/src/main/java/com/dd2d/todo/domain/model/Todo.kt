@@ -15,6 +15,7 @@ import kotlin.uuid.Uuid
  * @property createdAt 생성 일시
  * @property updatedAt 최근 수정 일시
  * @property completedAt 완료 일시 (null이면 미완료)
+ * @property parentId 부모 Todo의 식별자 (하위 Todo인 경우)
  * @property subTodos 하위 Todo 목록
  */
 data class Todo(
@@ -27,6 +28,7 @@ data class Todo(
   val createdAt: ZonedDateTime,
   val updatedAt: ZonedDateTime,
   val completedAt: ZonedDateTime?,
+  val parentId: Uuid?,
   val subTodos: List<Todo>
 ) {
   /** 완료 여부 */

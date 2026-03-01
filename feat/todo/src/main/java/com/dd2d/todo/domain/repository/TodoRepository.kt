@@ -47,6 +47,14 @@ interface TodoRepository {
   suspend fun updateTodo(id: Uuid, data: TodoUpdateData)
 
   /**
+   * 여러 Todo 항목의 정보를 일괄 수정합니다.
+   *
+   * @param ids 수정할 Todo 식별자 목록
+   * @param data 수정할 Todo 데이터
+   */
+  suspend fun updateTodos(ids: List<Uuid>, data: TodoUpdateData)
+
+  /**
    * 특정 Todo 항목을 삭제합니다.
    * 부모 Todo가 삭제될 경우 하위 Todo들에 대한 처리 정책은 구현에 따릅니다.
    *
