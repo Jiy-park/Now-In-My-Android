@@ -14,7 +14,7 @@ interface TodoCategoryRepository {
    *
    * @return 카테고리 목록
    */
-  suspend fun getCategories(): List<TodoCategory>
+  suspend fun getCategories(): Result<List<TodoCategory>>
 
   /**
    * 특정 ID의 카테고리 정보를 조회합니다.
@@ -22,14 +22,14 @@ interface TodoCategoryRepository {
    * @param id 카테고리 식별자
    * @return 카테고리 정보
    */
-  suspend fun getCategory(id: Uuid): TodoCategory
+  suspend fun getCategory(id: Uuid): Result<TodoCategory>
 
   /**
    * 새로운 카테고리를 생성합니다.
    *
    * @param data 생성할 카테고리 데이터
    */
-  suspend fun createCategory(data: TodoCategoryCreateData)
+  suspend fun createCategory(data: TodoCategoryCreateData): Result<Unit>
 
   /**
    * 기존 카테고리 정보를 수정합니다.
@@ -37,12 +37,12 @@ interface TodoCategoryRepository {
    * @param id 수정할 카테고리 식별자
    * @param data 수정할 카테고리 데이터
    */
-  suspend fun updateCategory(id: Uuid, data: TodoCategoryUpdateData)
+  suspend fun updateCategory(id: Uuid, data: TodoCategoryUpdateData): Result<Unit>
 
   /**
    * 특정 카테고리를 삭제합니다.
    *
    * @param id 삭제할 카테고리 식별자
    */
-  suspend fun deleteCategory(id: Uuid)
+  suspend fun deleteCategory(id: Uuid): Result<Unit>
 }

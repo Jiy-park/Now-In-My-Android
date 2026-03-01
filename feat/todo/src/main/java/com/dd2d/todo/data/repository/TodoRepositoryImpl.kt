@@ -20,16 +20,16 @@ class TodoRepositoryImpl @Inject constructor(
   private val todoDao: TodoDao
 ) : TodoRepository {
 
-  override suspend fun getTodos(categoryId: Uuid?, priority: TodoPriority?): List<Todo> {
-    return todoDao.getRootTodos(categoryId, priority).map { it.toDomain() }
+  override suspend fun getTodos(categoryId: Uuid?, priority: TodoPriority?): Result<List<Todo>> = runCatching {
+    todoDao.getRootTodos(categoryId, priority).map { it.toDomain() }
   }
 
-  override suspend fun getTodo(id: Uuid): Todo {
-    return todoDao.getTodo(id)?.toDomain() 
+  override suspend fun getTodo(id: Uuid): Result<Todo> = runCatching {
+    todoDao.getTodo(id)?.toDomain()
       ?: throw NoSuchElementException("Todo with id $id not found")
   }
 
-  override suspend fun createTodo(data: TodoCreateData) {
+  override suspend fun createTodo(data: TodoCreateData): Result<Unit> = runCatching {
     val now = ZonedDateTime.now()
     todoDao.insertTodo(
       TodoEntity(
@@ -47,8 +47,9 @@ class TodoRepositoryImpl @Inject constructor(
     )
   }
 
-  override suspend fun updateTodo(id: Uuid, data: TodoUpdateData) {
-    val existing = todoDao.getTodo(id)?.todo ?: return
+  override suspend fun updateTodo(id: Uuid, data: TodoUpdateData): Result<Unit> = runCatching {
+    val existing = todoDao.getTodo(id)?.todo
+      ?: throw NoSuchElementException("Todo with id $id not found")
     todoDao.updateTodo(
       existing.copy(
         title = data.title ?: existing.title,
@@ -62,9 +63,12 @@ class TodoRepositoryImpl @Inject constructor(
     )
   }
 
-  override suspend fun updateTodos(ids: List<Uuid>, data: TodoUpdateData) {
+  override suspend fun updateTodos(ids: List<Uuid>, data: TodoUpdateData): Result<Unit> = runCatching {
     val now = ZonedDateTime.now()
     val existingTodos = todoDao.getTodos(ids)
+    if (existingTodos.size != ids.size) {
+      throw NoSuchElementException("Some todos were not found")
+    }
     val updatedTodos = existingTodos.map { it.todo }.map { existing ->
       existing.copy(
         title = data.title ?: existing.title,
@@ -79,13 +83,14 @@ class TodoRepositoryImpl @Inject constructor(
     todoDao.updateTodos(updatedTodos)
   }
 
-  override suspend fun deleteTodo(id: Uuid) {
-    val existing = todoDao.getTodo(id)?.todo ?: return
+  override suspend fun deleteTodo(id: Uuid): Result<Unit> = runCatching {
+    val existing = todoDao.getTodo(id)?.todo
+      ?: throw NoSuchElementException("Todo with id $id not found")
     todoDao.deleteTodo(existing)
   }
 
-  override suspend fun getSubTodos(todoId: Uuid): List<Todo> {
-    return todoDao.getSubTodos(todoId).map { it.toDomain() }
+  override suspend fun getSubTodos(todoId: Uuid): Result<List<Todo>> = runCatching {
+    todoDao.getSubTodos(todoId).map { it.toDomain() }
   }
 
   private suspend fun TodoWithCategory.toDomain(): Todo {

@@ -16,16 +16,16 @@ class TodoCategoryRepositoryImpl @Inject constructor(
   private val categoryDao: CategoryDao
 ) : TodoCategoryRepository {
 
-  override suspend fun getCategories(): List<TodoCategory> {
-    return categoryDao.getCategories().map { it.toDomain() }
+  override suspend fun getCategories(): Result<List<TodoCategory>> = runCatching {
+    categoryDao.getCategories().map { it.toDomain() }
   }
 
-  override suspend fun getCategory(id: Uuid): TodoCategory {
-    return categoryDao.getCategory(id)?.toDomain() 
+  override suspend fun getCategory(id: Uuid): Result<TodoCategory> = runCatching {
+    categoryDao.getCategory(id)?.toDomain()
       ?: throw NoSuchElementException("Category with id $id not found")
   }
 
-  override suspend fun createCategory(data: TodoCategoryCreateData) {
+  override suspend fun createCategory(data: TodoCategoryCreateData): Result<Unit> = runCatching {
     categoryDao.insertCategory(
       CategoryEntity(
         id = Uuid.random(),
@@ -35,8 +35,9 @@ class TodoCategoryRepositoryImpl @Inject constructor(
     )
   }
 
-  override suspend fun updateCategory(id: Uuid, data: TodoCategoryUpdateData) {
-    val existing = categoryDao.getCategory(id) ?: return
+  override suspend fun updateCategory(id: Uuid, data: TodoCategoryUpdateData): Result<Unit> = runCatching {
+    val existing = categoryDao.getCategory(id)
+      ?: throw NoSuchElementException("Category with id $id not found")
     categoryDao.updateCategory(
       existing.copy(
         name = data.name ?: existing.name,
@@ -45,8 +46,9 @@ class TodoCategoryRepositoryImpl @Inject constructor(
     )
   }
 
-  override suspend fun deleteCategory(id: Uuid) {
-    val existing = categoryDao.getCategory(id) ?: return
+  override suspend fun deleteCategory(id: Uuid): Result<Unit> = runCatching {
+    val existing = categoryDao.getCategory(id)
+      ?: throw NoSuchElementException("Category with id $id not found")
     categoryDao.deleteCategory(existing)
   }
 

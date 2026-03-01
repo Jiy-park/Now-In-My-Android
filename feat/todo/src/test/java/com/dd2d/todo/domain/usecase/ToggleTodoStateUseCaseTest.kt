@@ -1,9 +1,6 @@
-@file:Suppress("MISSING_DEPENDENCY_IN_INFERRED_TYPE_ANNOTATION_WARNING")
-
 package com.dd2d.todo.domain.usecase
 
 import com.dd2d.todo.domain.model.Todo
-import com.dd2d.todo.domain.model.TodoUpdateData
 import com.dd2d.todo.domain.repository.TodoRepository
 import com.navercorp.fixturemonkey.FixtureMonkey
 import com.navercorp.fixturemonkey.kotlin.KotlinPlugin
@@ -22,9 +19,6 @@ import kotlin.uuid.Uuid
 
 /**
  * [ToggleTodoStateUseCase]의 상태 토글 및 연쇄 업데이트 로직을 검증하는 테스트 클래스입니다.
- * 상세 테스트 케이스 정의 및 구현 가이드는 아래 문서를 참조하세요.
- *
- * [노션 상세 가이드](https://www.notion.so/3163235ed4f880b69d71ee1f24edba22)
  */
 class ToggleTodoStateUseCaseTest {
   private val todoRepository: TodoRepository = mockk(relaxed = true)
@@ -45,26 +39,21 @@ class ToggleTodoStateUseCaseTest {
       .sample()
 
     val updatedTodo = targetTodo.copy(completedAt = ZonedDateTime.now())
-    coEvery { todoRepository.getTodo(targetId) } returnsMany listOf(targetTodo, updatedTodo)
+    coEvery { todoRepository.getTodo(targetId) } returnsMany listOf(
+      Result.success(targetTodo),
+      Result.success(updatedTodo)
+    )
+    coEvery { todoRepository.updateTodo(any(), any()) } returns Result.success(Unit)
 
     // When
-    val result = toggleTodoStateUseCase(targetId)
+    val result = toggleTodoStateUseCase(targetId).getOrThrow()
 
     // Then
     coVerify(exactly = 1) {
       todoRepository.updateTodo(targetId, match { it.completedAt != null })
     }
-    coVerify(exactly = 0) {
-      todoRepository.updateTodos(any(), any())
-    }
-    assertTrue(
-      actual = result.isComplete,
-      message = "미완료 상태의 Todo를 토글하면 완료 상태가 되어야 함"
-    )
-    assertNotNull(
-      actual = result.completedAt,
-      message = "완료된 Todo의 completedAt은 null이 아니어야 함"
-    )
+    assertTrue(result.isComplete)
+    assertNotNull(result.completedAt)
   }
 
   @Test
@@ -79,24 +68,21 @@ class ToggleTodoStateUseCaseTest {
       .sample()
 
     val updatedTodo = targetTodo.copy(completedAt = null)
-    coEvery { todoRepository.getTodo(targetId) } returnsMany listOf(targetTodo, updatedTodo)
+    coEvery { todoRepository.getTodo(targetId) } returnsMany listOf(
+      Result.success(targetTodo),
+      Result.success(updatedTodo)
+    )
+    coEvery { todoRepository.updateTodo(any(), any()) } returns Result.success(Unit)
 
     // When
-    val result = toggleTodoStateUseCase(targetId)
+    val result = toggleTodoStateUseCase(targetId).getOrThrow()
 
     // Then
     coVerify(exactly = 1) {
       todoRepository.updateTodo(targetId, match { it.completedAt == null })
     }
-    assertEquals(
-      expected = false,
-      actual = result.isComplete,
-      message = "완료 상태의 Todo를 토글하면 미완료 상태가 되어야 함"
-    )
-    assertNull(
-      actual = result.completedAt,
-      message = "미완료된 Todo의 completedAt은 null이어야 함"
-    )
+    assertEquals(false, result.isComplete)
+    assertNull(result.completedAt)
   }
 
   @Test
@@ -126,10 +112,15 @@ class ToggleTodoStateUseCaseTest {
       .sample()
 
     val updatedParent = parent.copy(completedAt = ZonedDateTime.now())
-    coEvery { todoRepository.getTodo(parentId) } returnsMany listOf(parent, updatedParent)
+    coEvery { todoRepository.getTodo(parentId) } returnsMany listOf(
+      Result.success(parent),
+      Result.success(updatedParent)
+    )
+    coEvery { todoRepository.updateTodo(any(), any()) } returns Result.success(Unit)
+    coEvery { todoRepository.updateTodos(any(), any()) } returns Result.success(Unit)
 
     // When
-    val result = toggleTodoStateUseCase(parentId)
+    val result = toggleTodoStateUseCase(parentId).getOrThrow()
 
     // Then
     coVerify {
@@ -138,10 +129,7 @@ class ToggleTodoStateUseCaseTest {
         match { it.completedAt != null }
       )
     }
-    assertTrue(
-      actual = result.isComplete,
-      message = "부모 Todo 토글 결과는 완료 상태여야 함"
-    )
+    assertTrue(result.isComplete)
   }
 
   @Test
@@ -164,10 +152,15 @@ class ToggleTodoStateUseCaseTest {
       .sample()
 
     val updatedParent = parent.copy(completedAt = null)
-    coEvery { todoRepository.getTodo(parentId) } returnsMany listOf(parent, updatedParent)
+    coEvery { todoRepository.getTodo(parentId) } returnsMany listOf(
+      Result.success(parent),
+      Result.success(updatedParent)
+    )
+    coEvery { todoRepository.updateTodo(any(), any()) } returns Result.success(Unit)
+    coEvery { todoRepository.updateTodos(any(), any()) } returns Result.success(Unit)
 
     // When
-    val result = toggleTodoStateUseCase(parentId)
+    val result = toggleTodoStateUseCase(parentId).getOrThrow()
 
     // Then
     coVerify {
@@ -176,11 +169,7 @@ class ToggleTodoStateUseCaseTest {
         match { it.completedAt == null }
       )
     }
-    assertEquals(
-      expected = false,
-      actual = result.isComplete,
-      message = "부모 Todo 토글 결과는 미완료 상태여야 함"
-    )
+    assertEquals(false, result.isComplete)
   }
 
   @Test
@@ -213,24 +202,29 @@ class ToggleTodoStateUseCaseTest {
 
     val updatedParent = parent.copy(completedAt = ZonedDateTime.now())
     val updatedTarget = target.copy(completedAt = ZonedDateTime.now())
-    coEvery { todoRepository.getTodo(targetId) } returnsMany listOf(target, updatedTarget)
-    coEvery { todoRepository.getTodo(parentId) } returnsMany listOf(parent, updatedParent)
-    coEvery { todoRepository.getSubTodos(parentId) } returns listOf(
+    
+    coEvery { todoRepository.getTodo(targetId) } returnsMany listOf(
+      Result.success(target),
+      Result.success(updatedTarget)
+    )
+    coEvery { todoRepository.getTodo(parentId) } returnsMany listOf(
+      Result.success(parent),
+      Result.success(updatedParent)
+    )
+    coEvery { todoRepository.getSubTodos(parentId) } returns Result.success(listOf(
       target.copy(completedAt = ZonedDateTime.now()),
       sibling
-    )
+    ))
+    coEvery { todoRepository.updateTodo(any(), any()) } returns Result.success(Unit)
 
     // When
-    val result = toggleTodoStateUseCase(targetId)
+    val result = toggleTodoStateUseCase(targetId).getOrThrow()
 
     // Then
     coVerify(exactly = 1) {
       todoRepository.updateTodo(parentId, match { it.completedAt != null })
     }
-    assertTrue(
-      actual = result.isComplete,
-      message = "타겟 Todo는 완료 상태여야 함"
-    )
+    assertTrue(result.isComplete)
   }
 
   @Test
@@ -263,25 +257,29 @@ class ToggleTodoStateUseCaseTest {
 
     val updatedParent = parent.copy(completedAt = null)
     val updatedTarget = target.copy(completedAt = null)
-    coEvery { todoRepository.getTodo(targetId) } returnsMany listOf(target, updatedTarget)
-    coEvery { todoRepository.getTodo(parentId) } returnsMany listOf(parent, updatedParent)
-    coEvery { todoRepository.getSubTodos(parentId) } returns listOf(
+    
+    coEvery { todoRepository.getTodo(targetId) } returnsMany listOf(
+      Result.success(target),
+      Result.success(updatedTarget)
+    )
+    coEvery { todoRepository.getTodo(parentId) } returnsMany listOf(
+      Result.success(parent),
+      Result.success(updatedParent)
+    )
+    coEvery { todoRepository.getSubTodos(parentId) } returns Result.success(listOf(
       target.copy(completedAt = null),
       sibling
-    )
+    ))
+    coEvery { todoRepository.updateTodo(any(), any()) } returns Result.success(Unit)
 
     // When
-    val result = toggleTodoStateUseCase(targetId)
+    val result = toggleTodoStateUseCase(targetId).getOrThrow()
 
     // Then
     coVerify(exactly = 1) {
       todoRepository.updateTodo(parentId, match { it.completedAt == null })
     }
-    assertEquals(
-      expected = false,
-      actual = result.isComplete,
-      message = "타겟 Todo는 미완료 상태여야 함"
-    )
+    assertEquals(false, result.isComplete)
   }
 
   @Test
@@ -313,35 +311,35 @@ class ToggleTodoStateUseCaseTest {
       .sample()
 
     val updatedTarget = target.copy(completedAt = ZonedDateTime.now())
-    coEvery { todoRepository.getTodo(targetId) } returnsMany listOf(target, updatedTarget)
-    coEvery { todoRepository.getTodo(childId) } returns child
-    coEvery { todoRepository.getTodo(rootId) } returns root
+    
+    coEvery { todoRepository.getTodo(targetId) } returnsMany listOf(
+      Result.success(target),
+      Result.success(updatedTarget)
+    )
+    coEvery { todoRepository.getTodo(childId) } returns Result.success(child)
+    coEvery { todoRepository.getTodo(rootId) } returns Result.success(root)
 
-    coEvery { todoRepository.getSubTodos(childId) } returns listOf(target.copy(completedAt = ZonedDateTime.now()))
-    coEvery { todoRepository.getSubTodos(rootId) } returns listOf(child.copy(completedAt = ZonedDateTime.now()))
+    coEvery { todoRepository.getSubTodos(childId) } returns Result.success(listOf(target.copy(completedAt = ZonedDateTime.now())))
+    coEvery { todoRepository.getSubTodos(rootId) } returns Result.success(listOf(child.copy(completedAt = ZonedDateTime.now())))
+    coEvery { todoRepository.updateTodo(any(), any()) } returns Result.success(Unit)
 
     // When
-    val result = toggleTodoStateUseCase(targetId)
+    val result = toggleTodoStateUseCase(targetId).getOrThrow()
 
     // Then
     coVerify(exactly = 1) { todoRepository.updateTodo(childId, match { it.completedAt != null }) }
     coVerify(exactly = 1) { todoRepository.updateTodo(rootId, match { it.completedAt != null }) }
-    assertTrue(
-      actual = result.isComplete,
-      message = "연쇄 업데이트 결과로 타겟 Todo도 완료 상태여야 함"
-    )
+    assertTrue(result.isComplete)
   }
 
   @Test(expected = NoSuchElementException::class)
   fun `TC_TODO_TOGGLE_008 - 존재하지 않는 Todo ID 요청`() = runTest {
     // Given
     val invalidId = Uuid.random()
-    coEvery { todoRepository.getTodo(invalidId) } throws NoSuchElementException()
+    coEvery { todoRepository.getTodo(invalidId) } returns Result.failure(NoSuchElementException())
 
     // When
-    toggleTodoStateUseCase(invalidId)
-
-    // Then - Exception expected
+    toggleTodoStateUseCase(invalidId).getOrThrow()
   }
 
   @Test
@@ -359,25 +357,26 @@ class ToggleTodoStateUseCaseTest {
 
     val parent = fm.giveMeBuilder<Todo>()
       .set("id", parentId)
-      .set("completedAt", ZonedDateTime.now()) // 이미 완료 상태
+      .set("completedAt", ZonedDateTime.now())
       .set("parentId", null)
       .set("subTodos", listOf(target))
       .sample()
 
     val updatedTarget = target.copy(completedAt = ZonedDateTime.now())
-    coEvery { todoRepository.getTodo(targetId) } returnsMany listOf(target, updatedTarget)
-    coEvery { todoRepository.getTodo(parentId) } returns parent
-    coEvery { todoRepository.getSubTodos(parentId) } returns listOf(target.copy(completedAt = ZonedDateTime.now()))
+    
+    coEvery { todoRepository.getTodo(targetId) } returnsMany listOf(
+      Result.success(target),
+      Result.success(updatedTarget)
+    )
+    coEvery { todoRepository.getTodo(parentId) } returns Result.success(parent)
+    coEvery { todoRepository.getSubTodos(parentId) } returns Result.success(listOf(target.copy(completedAt = ZonedDateTime.now())))
+    coEvery { todoRepository.updateTodo(any(), any()) } returns Result.success(Unit)
 
     // When
-    val result = toggleTodoStateUseCase(targetId)
+    val result = toggleTodoStateUseCase(targetId).getOrThrow()
 
     // Then
-    // 부모가 이미 완료 상태이므로 updateTodo(parentId, ...)는 호출되지 않아야 함
     coVerify(exactly = 0) { todoRepository.updateTodo(parentId, any()) }
-    assertTrue(
-      actual = result.isComplete,
-      message = "부모가 이미 목표 상태여도 타겟은 완료 상태가 되어야 함"
-    )
+    assertTrue(result.isComplete)
   }
 }

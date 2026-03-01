@@ -20,7 +20,7 @@ interface TodoRepository {
   suspend fun getTodos(
     categoryId: Uuid? = null,
     priority: TodoPriority? = null
-  ): List<Todo>
+  ): Result<List<Todo>>
 
   /**
    * 특정 ID를 가진 Todo의 상세 정보를 조회합니다.
@@ -28,7 +28,7 @@ interface TodoRepository {
    * @param id Todo 식별자
    * @return 해당 Todo 정보
    */
-  suspend fun getTodo(id: Uuid): Todo
+  suspend fun getTodo(id: Uuid): Result<Todo>
 
   /**
    * 새로운 Todo(또는 하위 Todo)를 생성합니다.
@@ -36,7 +36,7 @@ interface TodoRepository {
    *
    * @param data 생성할 Todo 데이터
    */
-  suspend fun createTodo(data: TodoCreateData)
+  suspend fun createTodo(data: TodoCreateData): Result<Unit>
 
   /**
    * 기존 Todo 항목의 정보를 수정합니다.
@@ -44,7 +44,7 @@ interface TodoRepository {
    * @param id 수정할 Todo 식별자
    * @param data 수정할 Todo 데이터
    */
-  suspend fun updateTodo(id: Uuid, data: TodoUpdateData)
+  suspend fun updateTodo(id: Uuid, data: TodoUpdateData): Result<Unit>
 
   /**
    * 여러 Todo 항목의 정보를 일괄 수정합니다.
@@ -52,7 +52,7 @@ interface TodoRepository {
    * @param ids 수정할 Todo 식별자 목록
    * @param data 수정할 Todo 데이터
    */
-  suspend fun updateTodos(ids: List<Uuid>, data: TodoUpdateData)
+  suspend fun updateTodos(ids: List<Uuid>, data: TodoUpdateData): Result<Unit>
 
   /**
    * 특정 Todo 항목을 삭제합니다.
@@ -60,7 +60,7 @@ interface TodoRepository {
    *
    * @param id 삭제할 Todo 식별자
    */
-  suspend fun deleteTodo(id: Uuid)
+  suspend fun deleteTodo(id: Uuid): Result<Unit>
 
   /**
    * 특정 Todo의 모든 하위 Todo 목록을 조회합니다.
@@ -68,5 +68,5 @@ interface TodoRepository {
    * @param todoId 부모 Todo의 식별자
    * @return 하위 Todo 목록
    */
-  suspend fun getSubTodos(todoId: Uuid): List<Todo>
+  suspend fun getSubTodos(todoId: Uuid): Result<List<Todo>>
 }

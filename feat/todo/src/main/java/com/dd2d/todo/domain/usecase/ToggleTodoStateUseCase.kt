@@ -15,19 +15,19 @@ import kotlin.uuid.Uuid
 class ToggleTodoStateUseCase @Inject constructor(
   private val todoRepository: TodoRepository
 ) {
-  suspend operator fun invoke(todoId: Uuid): Todo {
-    val targetTodo = todoRepository.getTodo(todoId)
+  suspend operator fun invoke(todoId: Uuid): Result<Todo> = runCatching {
+    val targetTodo = todoRepository.getTodo(todoId).getOrThrow()
     val now = ZonedDateTime.now()
     val isCompleting = !targetTodo.isComplete
     val targetCompletedAt = if (isCompleting) now else null
 
     // 1. 타겟 Todo 상태 업데이트
-    todoRepository.updateTodo(todoId, TodoUpdateData(completedAt = targetCompletedAt))
+    todoRepository.updateTodo(todoId, TodoUpdateData(completedAt = targetCompletedAt)).getOrThrow()
 
     // 2. 하위 항목들 일괄 업데이트 (Cascading)
     val subTodoIds = getAllSubTodoIds(targetTodo.subTodos)
     if (subTodoIds.isNotEmpty()) {
-      todoRepository.updateTodos(subTodoIds, TodoUpdateData(completedAt = targetCompletedAt))
+      todoRepository.updateTodos(subTodoIds, TodoUpdateData(completedAt = targetCompletedAt)).getOrThrow()
     }
 
     // 3. 부모 항목 상태 업데이트 (Auto-complete/uncomplete check)
@@ -36,7 +36,7 @@ class ToggleTodoStateUseCase @Inject constructor(
     }
 
     // 4. 업데이트된 최종 결과 반환
-    return todoRepository.getTodo(todoId)
+    todoRepository.getTodo(todoId).getOrThrow()
   }
 
   /**
@@ -65,8 +65,8 @@ class ToggleTodoStateUseCase @Inject constructor(
     var currentParentId: Uuid? = startParentId
 
     while (currentParentId != null) {
-      val parent = todoRepository.getTodo(currentParentId)
-      val siblings = todoRepository.getSubTodos(currentParentId)
+      val parent = todoRepository.getTodo(currentParentId).getOrThrow()
+      val siblings = todoRepository.getSubTodos(currentParentId).getOrThrow()
 
       val allSiblingsComplete = siblings.all { it.isComplete }
       val targetCompletedAt = if (allSiblingsComplete) now else null
@@ -77,7 +77,7 @@ class ToggleTodoStateUseCase @Inject constructor(
         break
       }
 
-      todoRepository.updateTodo(currentParentId, TodoUpdateData(completedAt = targetCompletedAt))
+      todoRepository.updateTodo(currentParentId, TodoUpdateData(completedAt = targetCompletedAt)).getOrThrow()
       currentParentId = parent.parentId
     }
   }
