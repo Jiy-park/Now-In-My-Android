@@ -5,6 +5,7 @@ hilt = "2.57.2"
 retrofit = "3.0.0"
 coil = "3.3.0"
 google-map-compose = "7.0.0"
+room = "2.8.4"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version = "1.17.0" }
@@ -46,6 +47,17 @@ google-map-compose = { group = "com.google.maps.android", name = "maps-compose",
 google-map-compose-utils = { group = "com.google.maps.android", name = "maps-compose-utils", version.ref = "google-map-compose" }
 google-map-compose-widgets = { group = "com.google.maps.android", name = "maps-compose-widgets", version.ref = "google-map-compose" }
 google-map-palces = { group = "com.google.maps.android", name = "places-ktx", version = "3.6.0" }
+
+# room
+room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
+room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
+room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
+
+# test
+kotlin-test = { group = "org.jetbrains.kotlin", name = "kotlin-test", version.ref = "kotlin" }
+mockk = { group = "io.mockk", name = "mockk", version = "1.14.9" }
+fixture-monkey = { group = "com.navercorp.fixturemonkey", name = "fixture-monkey-starter-kotlin", version = "1.1.16" }
+coroutine-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version = "1.10.2" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
