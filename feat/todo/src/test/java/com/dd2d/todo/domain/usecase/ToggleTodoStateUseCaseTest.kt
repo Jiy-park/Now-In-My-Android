@@ -44,6 +44,7 @@ class ToggleTodoStateUseCaseTest {
       Result.success(updatedTodo)
     )
     coEvery { todoRepository.updateTodo(any(), any()) } returns Result.success(Unit)
+    coEvery { todoRepository.getAllSubTodoIds(targetId) } returns Result.success(emptyList())
 
     // When
     val result = toggleTodoStateUseCase(targetId).getOrThrow()
@@ -73,6 +74,7 @@ class ToggleTodoStateUseCaseTest {
       Result.success(updatedTodo)
     )
     coEvery { todoRepository.updateTodo(any(), any()) } returns Result.success(Unit)
+    coEvery { todoRepository.getAllSubTodoIds(targetId) } returns Result.success(emptyList())
 
     // When
     val result = toggleTodoStateUseCase(targetId).getOrThrow()
@@ -117,6 +119,7 @@ class ToggleTodoStateUseCaseTest {
       Result.success(updatedParent)
     )
     coEvery { todoRepository.updateTodo(any(), any()) } returns Result.success(Unit)
+    coEvery { todoRepository.getAllSubTodoIds(parentId) } returns Result.success(listOf(childId, grandchildId))
     coEvery { todoRepository.updateTodos(any(), any()) } returns Result.success(Unit)
 
     // When
@@ -157,6 +160,7 @@ class ToggleTodoStateUseCaseTest {
       Result.success(updatedParent)
     )
     coEvery { todoRepository.updateTodo(any(), any()) } returns Result.success(Unit)
+    coEvery { todoRepository.getAllSubTodoIds(parentId) } returns Result.success(listOf(childId))
     coEvery { todoRepository.updateTodos(any(), any()) } returns Result.success(Unit)
 
     // When
@@ -207,15 +211,13 @@ class ToggleTodoStateUseCaseTest {
       Result.success(target),
       Result.success(updatedTarget)
     )
-    coEvery { todoRepository.getTodo(parentId) } returnsMany listOf(
-      Result.success(parent),
-      Result.success(updatedParent)
-    )
+    coEvery { todoRepository.getTodo(parentId) } returns Result.success(parent)
     coEvery { todoRepository.getSubTodos(parentId) } returns Result.success(listOf(
       target.copy(completedAt = ZonedDateTime.now()),
       sibling
     ))
     coEvery { todoRepository.updateTodo(any(), any()) } returns Result.success(Unit)
+    coEvery { todoRepository.getAllSubTodoIds(targetId) } returns Result.success(emptyList())
 
     // When
     val result = toggleTodoStateUseCase(targetId).getOrThrow()
@@ -262,15 +264,13 @@ class ToggleTodoStateUseCaseTest {
       Result.success(target),
       Result.success(updatedTarget)
     )
-    coEvery { todoRepository.getTodo(parentId) } returnsMany listOf(
-      Result.success(parent),
-      Result.success(updatedParent)
-    )
+    coEvery { todoRepository.getTodo(parentId) } returns Result.success(parent)
     coEvery { todoRepository.getSubTodos(parentId) } returns Result.success(listOf(
       target.copy(completedAt = null),
       sibling
     ))
     coEvery { todoRepository.updateTodo(any(), any()) } returns Result.success(Unit)
+    coEvery { todoRepository.getAllSubTodoIds(targetId) } returns Result.success(emptyList())
 
     // When
     val result = toggleTodoStateUseCase(targetId).getOrThrow()
@@ -322,6 +322,7 @@ class ToggleTodoStateUseCaseTest {
     coEvery { todoRepository.getSubTodos(childId) } returns Result.success(listOf(target.copy(completedAt = ZonedDateTime.now())))
     coEvery { todoRepository.getSubTodos(rootId) } returns Result.success(listOf(child.copy(completedAt = ZonedDateTime.now())))
     coEvery { todoRepository.updateTodo(any(), any()) } returns Result.success(Unit)
+    coEvery { todoRepository.getAllSubTodoIds(targetId) } returns Result.success(emptyList())
 
     // When
     val result = toggleTodoStateUseCase(targetId).getOrThrow()
@@ -371,6 +372,7 @@ class ToggleTodoStateUseCaseTest {
     coEvery { todoRepository.getTodo(parentId) } returns Result.success(parent)
     coEvery { todoRepository.getSubTodos(parentId) } returns Result.success(listOf(target.copy(completedAt = ZonedDateTime.now())))
     coEvery { todoRepository.updateTodo(any(), any()) } returns Result.success(Unit)
+    coEvery { todoRepository.getAllSubTodoIds(targetId) } returns Result.success(emptyList())
 
     // When
     val result = toggleTodoStateUseCase(targetId).getOrThrow()
