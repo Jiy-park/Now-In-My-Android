@@ -62,6 +62,23 @@ class TodoRepositoryImpl @Inject constructor(
     )
   }
 
+  override suspend fun updateTodos(ids: List<Uuid>, data: TodoUpdateData) {
+    val now = ZonedDateTime.now()
+    val existingTodos = todoDao.getTodos(ids)
+    val updatedTodos = existingTodos.map { it.todo }.map { existing ->
+      existing.copy(
+        title = data.title ?: existing.title,
+        content = data.content ?: existing.content,
+        categoryId = data.categoryId ?: existing.categoryId,
+        priority = data.priority ?: existing.priority,
+        deadline = data.deadline ?: existing.deadline,
+        completedAt = data.completedAt ?: existing.completedAt,
+        updatedAt = now
+      )
+    }
+    todoDao.updateTodos(updatedTodos)
+  }
+
   override suspend fun deleteTodo(id: Uuid) {
     val existing = todoDao.getTodo(id)?.todo ?: return
     todoDao.deleteTodo(existing)
@@ -86,6 +103,7 @@ class TodoRepositoryImpl @Inject constructor(
       createdAt = todo.createdAt,
       updatedAt = todo.updatedAt,
       completedAt = todo.completedAt,
+      parentId = todo.parentId,
       // 하위 Todo가 있는 경우 재귀적으로 가져옵니다.
       subTodos = todoDao.getSubTodos(todo.id).map { it.toDomain() }
     )

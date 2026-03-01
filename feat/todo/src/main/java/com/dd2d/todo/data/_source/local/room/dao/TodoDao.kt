@@ -35,6 +35,11 @@ interface TodoDao {
   @Query("SELECT * FROM todos WHERE id = :id")
   suspend fun getTodo(id: Uuid): TodoWithCategory?
 
+  /** 여러 ID의 Todo들을 한 번에 조회합니다. */
+  @Transaction
+  @Query("SELECT * FROM todos WHERE id IN (:ids)")
+  suspend fun getTodos(ids: List<Uuid>): List<TodoWithCategory>
+
   /** 새로운 Todo를 삽입하거나 기존 Todo를 교체합니다. */
   @Insert(onConflict = OnConflictStrategy.REPLACE)
   suspend fun insertTodo(todo: TodoEntity)
@@ -42,6 +47,10 @@ interface TodoDao {
   /** 기존 Todo 정보를 수정합니다. */
   @Update
   suspend fun updateTodo(todo: TodoEntity)
+
+  /** 여러 Todo 정보를 일괄 수정합니다. */
+  @Update
+  suspend fun updateTodos(todos: List<TodoEntity>)
 
   /** Todo를 삭제합니다. */
   @Delete
